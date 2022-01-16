@@ -4,6 +4,7 @@ import Introduction from "sections/Introduction";
 import Explore from "sections/Explore";
 import Footer from "sections/Footer";
 import { useNavigate } from "react-router-dom";
+import ScrollContainer from "components/ScrollContainer";
 
 const MainStack = props => {
   
@@ -44,12 +45,16 @@ const MainStack = props => {
   }, [props.pos]);
     
   return (
-    <main className="main">
-      <Landing refC={landingRef} />
-      <Introduction refC={introRef}/>
-      <Explore refC={exploreRef} />
-      <Footer refC={footerRef} />
-    </main>
+    
+    <ScrollContainer>
+      <main className="main">
+        <Landing refC={landingRef} />
+        <Introduction refC={introRef}/>
+        <Explore refC={exploreRef} />
+        <Footer refC={footerRef} />
+      </main>
+    </ScrollContainer>
+  
   )
 }
 

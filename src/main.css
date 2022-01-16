@@ -18,12 +18,13 @@
 
   --linespace: 1.5;
   --inner-padding: 3em;
-  --padding: 8em;
+  --padding: 2em;
   --gap: 1em;
   
   --shadow: 0 0 10px 1px rgba(0,0,0,0.3);
   
   --round: 100%;
+  --corner-normal: 0.8em;
   
   --real-vh: 100vh;
   
@@ -32,6 +33,7 @@
   --z-topbar: 100;
   --z-sidebar: 101;
   --z-propop: 102;
+  --z-scrollbar: 1001;
 }
 
 * {
@@ -104,7 +106,21 @@ nav.topbar {
   right: 0;
   display: grid;
   grid-template-columns: auto min-content;
-  padding: calc(var(--inner-padding) / 5) calc(var(--inner-padding) / 3);
+  padding: calc(var(--inner-padding) / 3) calc(var(--inner-padding) / 3);
+  z-index: var(--z-topbar);
+}
+
+/* ________________MENU__________________ */
+
+.menu {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: var(--z-sidebar);
+  background-color: var(--colour-white);
+  padding: var(--inner-padding);
+  min-width: 30em;
 }
 
 /* ________________BUTTONS__________________ */
@@ -122,6 +138,10 @@ button.icon {
 }
 button.icon img {
   width: 1.5em;
+}
+
+a {
+  color: var(--colour-text);
 }
 
 /* ________________SECTIONS__________________ */
@@ -151,13 +171,71 @@ section.explore {
   margin-right: auto;
 }
 
+.right-item-layout {
+  display: grid;
+  grid-template-columns: auto min-content;
+}
+
 @media not all and (hover: none) {
   button:hover {
     background-color: seagreen;
   }
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  .ps--active-y >.ps__rail-y:hover .ps__thumb-y,
+  .ps--active-x > .ps__rail-x:hover > .ps__thumb-x {
+      background-color: greenyellow !important;
+  }
+  
+  .ps--active-y>.ps__rail-y:hover,
+  .ps--active-x>.ps__rail-x:hover {
+      background-color: orange !important;
+      cursor: pointer;
+  }
 }
 
 @media screen and (min-width: 70em) {
-  
+  :root {
+    --padding: 8em;
+  }
 }
 
+.scroll-container {
+  position: relative;
+  height: 100%;
+}
+
+.ps:hover>.ps__rail-y {
+  opacity: 0.8 !important;
+}
+
+.ps--active-y>.ps__rail-y.ps--clicking,
+.ps--active-x>.ps__rail-x.ps--clicking {
+  background-color: blue !important;
+}
+
+.ps__thumb-y,
+.ps__thumb-x {
+  background-color: red !important;
+}
+
+.ps__rail-y {
+  margin: 0.5em 0.35em;
+  margin-left: 0;
+}
+
+.ps__rail-y,
+.ps__rail-x {
+  z-index: var(--z-scrollbar);
+  border-radius: var(--corner-normal);
+}
+
+@media screen and (max-width: 45em) {
+  
+  .ps__rail-y {
+      margin: 0.3em 0em;
+      margin-left: 0;
+  }
+}
