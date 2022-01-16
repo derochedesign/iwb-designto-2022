@@ -89,7 +89,8 @@ h6 {
   font: 700 0.8em/var(--linespace) var(--subheading);
 }
 
-body {
+main {
+  height: var(--real-vh);
 }
 
 section {
@@ -176,6 +177,27 @@ section.explore {
   grid-template-columns: auto min-content;
 }
 
+/* ________________MAP__________________ */
+
+.node-map {
+  width: 100%;
+  position: relative;
+}
+
+.node {
+  width: 3em;
+  height: 3em;
+  background-color: var(--colour-white);
+  border-radius: var(--round);
+  position: absolute;
+}
+
+.node[data-expand="true"] {
+  width: 10em;
+}
+
+/* ________________HOVER__________________ */
+
 @media not all and (hover: none) {
   button:hover {
     background-color: seagreen;
@@ -184,15 +206,18 @@ section.explore {
     text-decoration: underline;
   }
   
-  .ps--active-y >.ps__rail-y:hover .ps__thumb-y,
+  .ps--active-y >.ps__rail-y:hover > .ps__thumb-y,
   .ps--active-x > .ps__rail-x:hover > .ps__thumb-x {
-      background-color: greenyellow !important;
+      width: 8px;
   }
   
   .ps--active-y>.ps__rail-y:hover,
   .ps--active-x>.ps__rail-x:hover {
-      background-color: orange !important;
-      cursor: pointer;
+      width: 12px;
+      background-color: transparent;
+  }
+  .ps:hover>.ps__rail-y {
+    background-color: transparent;
   }
 }
 
@@ -202,28 +227,24 @@ section.explore {
   }
 }
 
+/* ________________SCROLL__________________ */
+
 .scroll-container {
   position: relative;
   height: 100%;
 }
 
-.ps:hover>.ps__rail-y {
-  opacity: 0.8 !important;
-}
-
-.ps--active-y>.ps__rail-y.ps--clicking,
-.ps--active-x>.ps__rail-x.ps--clicking {
-  background-color: blue !important;
-}
-
 .ps__thumb-y,
 .ps__thumb-x {
-  background-color: red !important;
+  background-color: #232323 !important;
+  width: 3px;
+  cursor: pointer;
 }
 
 .ps__rail-y {
-  margin: 0.5em 0.35em;
+  margin: 0.5em 0.25em;
   margin-left: 0;
+  width: 12px;
 }
 
 .ps__rail-y,
@@ -232,10 +253,16 @@ section.explore {
   border-radius: var(--corner-normal);
 }
 
-@media screen and (max-width: 45em) {
-  
-  .ps__rail-y {
-      margin: 0.3em 0em;
-      margin-left: 0;
-  }
+.ps--active-y>.ps__rail-y:focus,
+.ps--active-x>.ps__rail-x:focus,
+.ps--active-y>.ps__rail-y.ps--clicking,
+.ps--active-x>.ps__rail-x.ps--clicking {
+    width: 12px;
+    background-color: transparent;
+}
+.ps--active-y>.ps__rail-y:focus > .ps__thumb-y,
+.ps--active-x>.ps__rail-x:focus > .ps__thumb-x,
+.ps--active-y>.ps__rail-y.ps--clicking > .ps__thumb-y,
+.ps--active-x>.ps__rail-x.ps--clicking > .ps__thumb-x {
+    width: 8px;
 }

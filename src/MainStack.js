@@ -3,7 +3,7 @@ import Landing from "sections/Landing";
 import Introduction from "sections/Introduction";
 import Explore from "sections/Explore";
 import Footer from "sections/Footer";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import ScrollContainer from "components/ScrollContainer";
 
 const MainStack = props => {
@@ -13,7 +13,7 @@ const MainStack = props => {
   const exploreRef = useRef(null);
   const footerRef = useRef(null);
   
-  let navigate = useNavigate();
+  let local = useLocation();
   
   useEffect(() => {
     
@@ -42,7 +42,7 @@ const MainStack = props => {
     
     _ref.scrollIntoView();
     
-  }, [props.pos]);
+  }, [props.pos, local]);
     
   return (
     
