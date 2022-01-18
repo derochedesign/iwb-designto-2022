@@ -6,7 +6,7 @@
   
   /* dynamic colours */
   --colour-body: white;
-  --colour-text: black;
+  --colour-text: var(--colour-white);
   
   --heading: "Archivo", sans-serif;
   --subheading: serif;
@@ -119,7 +119,7 @@ nav.topbar {
   top: 0;
   bottom: 0;
   z-index: var(--z-sidebar);
-  background-color: var(--colour-white);
+  background-color: rgba(255,255,255,0.3);
   padding: var(--inner-padding);
   min-width: 30em;
 }
@@ -130,15 +130,19 @@ button {
   border: none;
   appearance: none;
   padding: calc(var(--inner-padding) / 3) calc(var(--inner-padding) / 2);
-  background-color: greenyellow;
+  background-color: transparent;
+  border: 2px solid var(--colour-white);
   cursor: pointer;
+  color: var(--colour-text);
 }
 button.icon {
   padding: calc(var(--inner-padding) / 8);
   background-color: unset;
+  border: unset;
 }
 button.icon img {
   width: 1.5em;
+  filter: invert(1);
 }
 
 a {
@@ -150,15 +154,14 @@ a {
 section.landing {
   display: grid;
   align-items: flex-end;
-  background-color: thistle;
 }
 section.introduction, section.footer {
   display: grid;
   align-items: center;
 }
 section.explore {
-  background-color: wheat;
-  height: 400vh;
+  /* padding: unset; */
+  height: 200vh;
 }
 
 /* ________________LAYOUTS__________________ */
@@ -177,6 +180,14 @@ section.explore {
   grid-template-columns: auto min-content;
 }
 
+.grad-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
 /* ________________MAP__________________ */
 
 .node-map {
@@ -185,22 +196,44 @@ section.explore {
 }
 
 .node {
+  min-width: 3em;
   width: 3em;
   height: 3em;
   background-color: var(--colour-white);
   border-radius: var(--round);
   position: absolute;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  transition: 0.3s ease, border-radius 0.5s ease;
+  overflow: hidden;
+}
+.node h3 {
+  opacity: 0;
+  visibility: hidden;
+  user-select: none;
+  transition: 0.5s ease;
+  position: absolute;
 }
 
 .node[data-expand="true"] {
-  width: 10em;
+  min-width: 10em;
+  border-radius: var(--corner-normal);
+  margin-left: -3.5em;
+  padding: 0 var(--inner-padding);
+  transition: 0.5s ease, border-radius 0.1s ease;
+}
+.node[data-expand="true"] h3 {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* ________________HOVER__________________ */
 
 @media not all and (hover: none) {
   button:hover {
-    background-color: seagreen;
+    background-color: var(--colour-white);
+    color: var(--colour-black);
   }
   a:hover {
     text-decoration: underline;
@@ -236,7 +269,7 @@ section.explore {
 
 .ps__thumb-y,
 .ps__thumb-x {
-  background-color: #232323 !important;
+  background-color: #efefef !important;
   width: 3px;
   cursor: pointer;
 }
@@ -266,3 +299,22 @@ section.explore {
 .ps--active-x>.ps__rail-x.ps--clicking > .ps__thumb-x {
     width: 8px;
 }
+
+.App::after {
+  content: "";
+  background-image: url("img/grain3.png");
+  opacity: 0.13;
+  top: -30vh;
+  left: -35vw;
+  width: 200vw;
+  position: fixed;
+  z-index: -1;
+  height: 200vh;
+  animation: noise 1.5s steps(2) infinite;
+  will-change: transform;
+  background-position: 50%;
+  background-size: 20em;
+  pointer-events: none;
+}
+
+@keyframes noise{0%{transform:translate3d(0,9rem,0)}10%{transform:translate3d(-1rem,-4rem,0)}20%{transform:translate3d(-8rem,2rem,0)}30%{transform:translate3d(9rem,-9rem,0)}40%{transform:translate3d(-2rem,7rem,0)}50%{transform:translate3d(-9rem,-4rem,0)}60%{transform:translate3d(2rem,6rem,0)}70%{transform:translate3d(7rem,-8rem,0)}80%{transform:translate3d(-9rem,1rem,0)}90%{transform:translate3d(6rem,-5rem,0)}to{transform:translate3d(-7rem,0,0)}};

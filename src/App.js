@@ -22,12 +22,10 @@ function App() {
     
     function handleResize() {
       
-      if (window.location.pathname == "/work" || window.location.pathname == "/") {
-        setDimensions({
-          height: viewportH,
-          width: viewportW
-        });
-      }
+      setDimensions({
+        height: viewportH,
+        width: viewportW
+      });
     }
     
     window.addEventListener('resize', handleResize);
@@ -61,11 +59,11 @@ function App() {
           </div>
         }
         <Routes>
-          <Route path="/" element={<MainStack pos={1} />}/>
-          <Route path="/introduction" element={<MainStack pos={2} />}/>
-          <Route path="/explore" element={<MainStack pos={3} />}/>
-          <Route path="/connect" element={<MainStack pos={4} />}/>
-          <Route path="*" element={<MainStack pos={0} />}/>
+          <Route path="/" element={<MainStack pos={1} vW={dimensions.width}/>}/>
+          <Route path="/introduction" element={<MainStack pos={2} vW={dimensions.width}/>}/>
+          <Route path="/explore" element={<MainStack pos={3} vW={dimensions.width}/>}/>
+          <Route path="/connect" element={<MainStack pos={4} vW={dimensions.width}/>}/>
+          <Route path="*" element={<MainStack pos={0} vW={dimensions.width}/>}/>
         </Routes>
       </BrowserRouter>      
     </div>

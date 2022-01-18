@@ -5,6 +5,7 @@ import Explore from "sections/Explore";
 import Footer from "sections/Footer";
 import { useLocation } from "react-router-dom";
 import ScrollContainer from "components/ScrollContainer";
+import GradientBackground from "components/GradientBackground";
 
 const MainStack = props => {
   
@@ -13,7 +14,14 @@ const MainStack = props => {
   const exploreRef = useRef(null);
   const footerRef = useRef(null);
   
+  const [scrollHeight, setScrollHeight] = useState(0);
+  
   let local = useLocation();
+  console.log(scrollHeight);
+  
+  useEffect(() => {
+    setScrollHeight(landingRef.current.clientHeight + introRef.current.clientHeight + exploreRef.current.clientHeight + footerRef.current.clientHeight);
+  },[])
   
   useEffect(() => {
     
@@ -41,20 +49,22 @@ const MainStack = props => {
     }
     
     _ref.scrollIntoView();
+    //smooth scroll issue w perfect scrollbar
     
   }, [props.pos, local]);
     
   return (
-    
-    <ScrollContainer>
-      <main className="main">
-        <Landing refC={landingRef} />
-        <Introduction refC={introRef}/>
-        <Explore refC={exploreRef} />
-        <Footer refC={footerRef} />
-      </main>
-    </ScrollContainer>
-  
+    <>
+      <ScrollContainer>
+        {(scrollHeight) && <GradientBackground height={scrollHeight} width={props.vW}/>}
+        <main className="main">
+          <Landing refC={landingRef} />
+          <Introduction refC={introRef}/>
+          <Explore refC={exploreRef} vW={props.vW}/>
+          <Footer refC={footerRef} />
+        </main>
+      </ScrollContainer>
+    </>
   )
 }
 

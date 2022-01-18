@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Canvas from "components/Canvas";
+import Konva from "components/Konva";
 
 const Explore = props => {
   
@@ -14,6 +16,8 @@ const Explore = props => {
         <Node left={49} top={300} title={"Something"}/>
         <Node left={75} top={149} title={"Else"}/>
       </div>
+      {/* <Canvas vW={props.vW} /> */}
+      {/* <Konva vW={props.vW}/> */}
     </section>
   )
 }
@@ -31,6 +35,8 @@ const Node = props => {
       data-expand={nodeHover}
       className="node"
       style={{left:props.left+"vw", top:props.top+"px"}}>
+        
+      <h3>{props.title}</h3>
     </div>
   )
 }
