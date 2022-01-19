@@ -13,23 +13,26 @@ const MainStack = props => {
   const introRef = useRef(null);
   const exploreRef = useRef(null);
   const footerRef = useRef(null);
+  const psRef = useRef();
   
   const [scrollHeight, setScrollHeight] = useState(0);
   
   let local = useLocation();
-  console.log(scrollHeight);
   
   useEffect(() => {
     setScrollHeight(landingRef.current.clientHeight + introRef.current.clientHeight + exploreRef.current.clientHeight + footerRef.current.clientHeight);
-  },[])
+  },[props.vS])
   
   useEffect(() => {
     
     let _ref;
+    let _offset = 0;
+    const curr = psRef.current;
     
     if (props.pos === 1) {
       //landing
       _ref = landingRef.current;
+      _offset = 1;
     }
     else if (props.pos === 2) {
       //intro
@@ -38,6 +41,7 @@ const MainStack = props => {
     else if (props.pos === 3) {
       //explore
       _ref = exploreRef.current;
+      _offset = -140;
     }
     else if (props.pos === 4) {
       //footer
@@ -48,19 +52,26 @@ const MainStack = props => {
       _ref = landingRef.current;
     }
     
-    _ref.scrollIntoView();
+    // if(curr) curr.scrollTop = (_ref.getBoundingClientRect().top + _offset);
+    if(curr) curr.scrollTo({
+      top:_ref.getBoundingClientRect().top + curr.scrollTop + _offset
+    });
+    else window.scrollTo({
+      top:_ref.getBoundingClientRect().top + window.pageYOffset + _offset,
+      behavior:"smooth"
+    })
     //smooth scroll issue w perfect scrollbar
     
   }, [props.pos, local]);
     
   return (
     <>
-      <ScrollContainer>
-        {(scrollHeight) && <GradientBackground height={scrollHeight} width={props.vW}/>}
+      <ScrollContainer contRef={psRef}>
+        {(scrollHeight) && <GradientBackground height={scrollHeight} width={props.vS.width}/>}
         <main className="main">
           <Landing refC={landingRef} />
           <Introduction refC={introRef}/>
-          <Explore refC={exploreRef} vW={props.vW}/>
+          <Explore refC={exploreRef} vW={props.vS.width}/>
           <Footer refC={footerRef} />
         </main>
       </ScrollContainer>

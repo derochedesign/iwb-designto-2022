@@ -4,16 +4,14 @@ const Footer = props => {
 
   return (
     <section className="footer" ref={props.refC}>
-      <div className="item-list">
-        <h2>How can designers and non-designers alike help facilitate the introduction of climate ready communities?</h2>
-        <ol>
-          <li>Read our report here.</li>
-          <li>Participate in our design charrette next month</li>
-          <li>Provide feedback for what you'd like to see in a climate ready community.</li>
-        </ol>
+      <div className="item-list-large">
+        <h1>How can designers and non-designers alike help facilitate the introduction of climate ready communities?</h1>
         <div className="footer-buttons">
-          <button>IG Account</button>
-          <button>Mailing List</button>
+          <button className="round">Download Report</button>
+          <button className="round">Join our Mailing List</button>
+          <button className="round">2022 Charrete</button>
+          <button className="round">Institute without Boundaries</button>
+          <button className="round">Follow us on IG</button>
         </div>
       </div>
     </section>

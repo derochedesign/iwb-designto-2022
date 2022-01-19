@@ -2,22 +2,36 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Canvas from "components/Canvas";
 import Konva from "components/Konva";
+import Modal from "components/Modal";
 
 const Explore = props => {
   
   let navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [currentModal, setCurrentModal] = useState(0);
+  
+  const handleModal = (i) => {
+    (!isNaN(i)) && setCurrentModal(i);
+    setShowModal(!showModal);
+  }
   
   return (
     <section className="explore" ref={props.refC}>
-      <h1>Explore</h1>
-      <div className="node-map">
+      <div className="title">
+        <h2>The Journey</h2>
+      </div>
+      { (showModal) &&
+        <Modal i={currentModal} handleModal={handleModal} />
+      }
+      
+      {/* <div className="node-map">
         <Node left={5} top={350} title={"Education"}/>
         <Node left={12} top={150} title={"Climate"}/>
         <Node left={49} top={300} title={"Something"}/>
         <Node left={75} top={149} title={"Else"}/>
-      </div>
+      </div> */}
       {/* <Canvas vW={props.vW} /> */}
-      {/* <Konva vW={props.vW}/> */}
+      <Konva vW={props.vW} handleModal={handleModal}/>
     </section>
   )
 }

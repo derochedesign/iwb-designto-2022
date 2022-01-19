@@ -12,9 +12,8 @@ const GradientBackground = props => {
     canvas.height = props.height;
     canvas.width = props.width;
     canvas.style.height = `${props.height}px`;
-    console.log("hello gam?");
     draw(context);
-  },[props.width]);
+  },[props.width, props.height]);
   
   const draw = c => {
     
