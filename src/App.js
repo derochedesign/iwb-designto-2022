@@ -7,6 +7,7 @@ import "main.css";
 import logoIcon from "img/logo-icon.svg";
 import logoText from "img/logo-text.svg";
 import menuIcon from "img/menu.svg";
+import closeIcon from "img/close.svg";
 
 function App() {
 
@@ -14,11 +15,16 @@ function App() {
   
   const [dimensions, setDimensions] = useState({
     height: window.innerHeight,
-    width: window.innerWidth
+    width: document.body.clientWidth
   });
+  
   const [menuOpen, setMenuOpen] = useState(false);
   
   useEffect(() => {
+    setDimensions({
+      height: window.innerHeight,
+      width: document.body.clientWidth
+    })
     root.style.setProperty('--real-vh', window.innerHeight + "px");
   },[]);
   
@@ -30,7 +36,7 @@ function App() {
       timeoutId = setTimeout(() => {
       setDimensions({
         height: window.innerHeight,
-        width: window.innerWidth
+        width: document.body.clientWidth
       })
       root.style.setProperty('--real-vh', window.innerHeight + "px");
       }, 150);
@@ -48,30 +54,43 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <nav className="topbar">
-          <div className="logo item-row">
-            <img src={logoIcon} />
-            <img src={logoText} />
-          </div>
-          <button className="icon" onClick={() => setMenuOpen(!menuOpen)}><img src={menuIcon} /></button>
+          <Link to="/">
+            <div className="logo item-row">
+              <img src={logoIcon} />
+              <img src={logoText} />
+            </div>
+          </Link>
+          <button className="icon" onClick={() => setMenuOpen(true)}><img src={menuIcon} /></button>
         </nav>
         {
           (menuOpen) &&
           <div className="menu">
             <div className="inner-menu">
-              <Link to="/"><h2>Home</h2></Link>
-              <Link to="/introduction"><h2>An Introduction</h2></Link>
-              <Link to="/journey"><h2>The Journey</h2></Link>
-              <Link to="/home"><h2>Climate-ready Communities</h2></Link>
-              <Link to="/question"><h2>The Big Question</h2></Link>
-              <Link to="/connect"><h2>Connect</h2></Link>
+              <div className="menu-header right-item-layout">
+                <div className="logo item-row">
+                  <img src={logoIcon} />
+                  <img src={logoText} />
+                </div>
+                <button className="icon" onClick={() => setMenuOpen(false)}>
+                  <img src={closeIcon} />
+                </button>
+              </div>
+              <div className="item-list" onClick={() => setMenuOpen(false)}>
+                <Link to="/"><h4>Home</h4></Link>
+                <Link to="/introduction"><h4>An Introduction</h4></Link>
+                <Link to="/explore"><h4>The Larger Picture</h4></Link>
+                <Link to="/summary"><h4>Climate-ready Communities</h4></Link>
+                <Link to="/connect"><h4>Connect</h4></Link>
+              </div>
             </div>
           </div>
         }
         <Routes>
           <Route path="/" element={<MainStack pos={1} vS={dimensions}/>}/>
           <Route path="/introduction" element={<MainStack pos={2} vS={dimensions}/>}/>
-          <Route path="/journey" element={<MainStack pos={3} vS={dimensions}/>}/>
-          <Route path="/connect" element={<MainStack pos={4} vS={dimensions}/>}/>
+          <Route path="/explore" element={<MainStack pos={3} vS={dimensions}/>}/>
+          <Route path="/summary" element={<MainStack pos={4} vS={dimensions}/>}/>
+          <Route path="/connect" element={<MainStack pos={5} vS={dimensions}/>}/>
           <Route path="*" element={<MainStack pos={0} vS={dimensions}/>}/>
         </Routes>
       </BrowserRouter>      

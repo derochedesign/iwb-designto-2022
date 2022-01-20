@@ -23,14 +23,6 @@ const Explore = props => {
       { (showModal) &&
         <Modal i={currentModal} handleModal={handleModal} />
       }
-      
-      {/* <div className="node-map">
-        <Node left={5} top={350} title={"Education"}/>
-        <Node left={12} top={150} title={"Climate"}/>
-        <Node left={49} top={300} title={"Something"}/>
-        <Node left={75} top={149} title={"Else"}/>
-      </div> */}
-      {/* <Canvas vW={props.vW} /> */}
       <Konva vW={props.vW} handleModal={handleModal}/>
     </section>
   )

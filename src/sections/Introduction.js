@@ -1,4 +1,4 @@
-import React from "react";
+import SectionWrapper from "components/SectionWrapper";
 import { useNavigate } from "react-router-dom";
 
 const Introduction = props => {
@@ -6,14 +6,17 @@ const Introduction = props => {
   let navigate = useNavigate();
   
   return (
-    <section className="introduction" ref={props.refC}>
+    <SectionWrapper 
+      className={"introduction"}
+      title="An Introduction"
+      refC={props.refC}
+      split={true}>
       <div className="item-list">
-        <h2>An Introduction</h2>
-        <h3>Migration is not monolithic. Humans relocate due to a complex set of factors that are constantly evolving making it difficult to track and cause fixed solutions to become obsolete. Moreover, how does an individual, such as you, make a positive impact when chasing a moving target?</h3>
-        <p>This map is designed to help you navigate complexities surrounding migration due to climate change. By grounding information on a community and human level, a systemic picture is revealed. Awareness could inspire empty, which could inspire action. Step one is getting a grasp of what is going on.</p>
-        <button onClick={() => navigate("/explore")}>Explore</button>
+        <p>Designing for a climate ready community means more than just envisioning a sustainable future. Designing for climate ready communities requires the recognition and integration of the most underrepresented stakeholders in climate discourse: those displaced by environmental risk.</p>
+        <p>This digital tool represents how human mobility is implicated in the crossroads of climate change. Uncover nodes and discover sites of intervention for designers and non-designers alike to set the stage for a climate-ready future. This method will make visible the implicit connections that drive one of the most concerning environmental impacts: the loss of home and community.</p>
       </div>
-    </section>
+      
+    </SectionWrapper>
   )
 }
 

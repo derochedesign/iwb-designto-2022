@@ -5,7 +5,6 @@ const Footer = props => {
   return (
     <section className="footer" ref={props.refC}>
       <div className="item-list-large">
-        <h1>How can designers and non-designers alike help facilitate the introduction of climate ready communities?</h1>
         <div className="footer-buttons">
           <button className="round">Download Report</button>
           <button className="round">Join our Mailing List</button>

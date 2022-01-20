@@ -6,12 +6,18 @@ import Footer from "sections/Footer";
 import { useLocation } from "react-router-dom";
 import ScrollContainer from "components/ScrollContainer";
 import GradientBackground from "components/GradientBackground";
+import Team from "sections/Team";
+import Info from "sections/Info";
+import Survey from "sections/Survey";
 
 const MainStack = props => {
   
   const landingRef = useRef(null);
   const introRef = useRef(null);
   const exploreRef = useRef(null);
+  const infoRef = useRef(null);
+  const surveyRef = useRef(null);
+  const teamRef = useRef(null);
   const footerRef = useRef(null);
   const psRef = useRef();
   
@@ -20,7 +26,8 @@ const MainStack = props => {
   let local = useLocation();
   
   useEffect(() => {
-    setScrollHeight(landingRef.current.clientHeight + introRef.current.clientHeight + exploreRef.current.clientHeight + footerRef.current.clientHeight);
+    setScrollHeight(
+      document.body.scrollHeight);
   },[props.vS])
   
   useEffect(() => {
@@ -32,7 +39,6 @@ const MainStack = props => {
     if (props.pos === 1) {
       //landing
       _ref = landingRef.current;
-      _offset = 1;
     }
     else if (props.pos === 2) {
       //intro
@@ -45,7 +51,11 @@ const MainStack = props => {
     }
     else if (props.pos === 4) {
       //footer
-      _ref = footerRef.current;
+      _ref = infoRef.current;
+    }
+    else if (props.pos === 5) {
+      //footer
+      _ref = surveyRef.current;
     }
     else {
       //err
@@ -54,7 +64,8 @@ const MainStack = props => {
     
     // if(curr) curr.scrollTop = (_ref.getBoundingClientRect().top + _offset);
     if(curr) curr.scrollTo({
-      top:_ref.getBoundingClientRect().top + curr.scrollTop + _offset
+      top:_ref.getBoundingClientRect().top + curr.scrollTop + _offset,
+      behavior:"smooth"
     });
     else window.scrollTo({
       top:_ref.getBoundingClientRect().top + window.pageYOffset + _offset,
@@ -66,15 +77,18 @@ const MainStack = props => {
     
   return (
     <>
-      <ScrollContainer contRef={psRef}>
+      {/* <ScrollContainer contRef={psRef}> */}
         {(scrollHeight) && <GradientBackground height={scrollHeight} width={props.vS.width}/>}
         <main className="main">
           <Landing refC={landingRef} />
           <Introduction refC={introRef}/>
           <Explore refC={exploreRef} vW={props.vS.width}/>
+          <Info refC={infoRef} />
+          <Survey refC={surveyRef} />
+          <Team refC={teamRef} />
           <Footer refC={footerRef} />
         </main>
-      </ScrollContainer>
+      {/* </ScrollContainer> */}
     </>
   )
 }
