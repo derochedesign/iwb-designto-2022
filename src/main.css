@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,500,700');
+@import url('https://fonts.googleapis.com/css2?family=Judson:wght@700&display=swap');
 @font-face {
   font-family: 'Tiempos';
   src: local('tiempos'), url(./fonts/tiempos.woff2) format('woff2');
@@ -13,7 +14,7 @@
   --colour-body: var(--colour-black);
   --colour-text: var(--colour-white);
   
-  --heading: "Tiempos", sans-serif;
+  --heading: "Tiempos","Judson", serif;
   --subheading: "Roboto", sans-serif;
   --content: "Roboto", sans-serif;
   
@@ -79,7 +80,7 @@ h1 {
 }
 
 h2 {
-  font: var(--med) 2.4em/var(--linespace) var(--heading);
+  font: var(--med) 3em/var(--linespace) var(--heading);
 }
 h3 {
   font: var(--med) 1.6em/var(--linespace) var(--heading);
@@ -162,12 +163,12 @@ nav.topbar {
 /* ________________BUTTONS__________________ */
 
 button {
-  font: var(--regular) 1.4em/1 var(--content);
+  font: var(--regular) 1.2em/1 var(--content);
   border: none;
   appearance: none;
-  padding: calc(var(--inner-padding) / 4) calc(var(--inner-padding) / 3);
+  padding: calc(var(--inner-padding) / 5) calc(var(--inner-padding) / 3);
   background-color: transparent;
-  border: 2px solid var(--colour-white);
+  border: 1px solid var(--colour-white);
   cursor: pointer;
   color: var(--colour-text);
   border-radius: var(--corner-small);
@@ -223,6 +224,10 @@ a.text {
 
 section {
   padding: var(--padding);
+  padding-bottom: 0;
+}
+section:last-of-type, section:first-of-type, section.team {
+  padding-bottom: var(--padding);
 }
 
 section.landing {
@@ -484,6 +489,12 @@ section.team .team-set .team-card .title {
   }
 }
 
+@media screen and (min-width: 50em) {
+  :root {
+    --padding: 4em;
+  }
+}
+
 @media screen and (min-width: 70em) {
   :root {
     --padding: 8em;
@@ -503,7 +514,7 @@ section.team .team-set .team-card .title {
     font-size: 3.5em;
   }
   h3 {
-    font-size: 2.1em;
+    font-size: 2em;
   }
   h4 {
     font-size: 2em;
@@ -516,7 +527,7 @@ section.team .team-set .team-card .title {
   }
   
   button {
-    font-size: 1.4em;
+    font-size: 1.3em;
   }
   button.round {
     font-size: 1.3em;

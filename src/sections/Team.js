@@ -18,7 +18,7 @@ const Team = props => {
     {img:jp, name:"josé pablo (jp) carrillo", title:"Bachelor of Visual Communication, Brand Strategist, & Packaging Designer"},
     {img:katie, name:"katie doyle", title:"Advanced Diploma in Graphic Design & Certificate in Digital Media Skills"},
     {img:rebecca, name:"rebecca arshawsky", title:"Honours Bachelor of Arts, Architecture, & Human Geography"},
-    {img:shashank, name:"ahashank banawalikar", title:"Bachelor of Architecture"},
+    {img:shashank, name:"shashank banawalikar", title:"Bachelor of Architecture"},
     {img:zan, name:"zan ding", title:"Bachelor of Science in Agricultural & Environmental Sciences"},
   ];
   
@@ -31,10 +31,9 @@ const Team = props => {
         
       <div className="team-set">
         {allTeam.map((t,i) => 
-          <TeamCard img={t.img} name={t.name} title={t.title} />
+          <TeamCard key={i} img={t.img} name={t.name} title={t.title} />
         )}
       </div>
-      
     </SectionWrapper>
   )
 }

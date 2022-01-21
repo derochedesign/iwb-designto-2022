@@ -84,7 +84,7 @@ const MainStack = props => {
           <Introduction refC={introRef}/>
           <Explore refC={exploreRef} vW={props.vS.width}/>
           <Info refC={infoRef} />
-          <Survey refC={surveyRef} />
+          <Survey refC={surveyRef} vH={props.vS.height} />
           <Team refC={teamRef} />
           <Footer refC={footerRef} />
         </main>

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Canvas from "components/Canvas";
 import Konva from "components/Konva";
 import Modal from "components/Modal";
+import SectionWrapper from "components/SectionWrapper";
 
 const Explore = props => {
   
@@ -16,15 +17,18 @@ const Explore = props => {
   }
   
   return (
-    <section className="explore" ref={props.refC}>
-      <div className="title">
-        <h2>The Journey</h2>
-      </div>
-      { (showModal) &&
-        <Modal i={currentModal} handleModal={handleModal} />
-      }
+    <>
+      <SectionWrapper 
+        className={"team"}
+        title="The Larger Picture"
+        refC={props.refC}
+        split={false}>
+        { (showModal) &&
+          <Modal i={currentModal} handleModal={handleModal} />
+        }
+      </SectionWrapper>
       <Konva vW={props.vW} handleModal={handleModal}/>
-    </section>
+    </>
   )
 }
 
