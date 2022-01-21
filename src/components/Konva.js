@@ -9,7 +9,8 @@ const Konva = props => {
   const HEIGHT = 3750;
   const HOVERMULT = 1.05;
   const purple = "#5514ac";
-  const transWhite = "rgba(255,255,255,0.3)";
+  const transWhite = "rgba(255,255,255,0.2)";
+  const titleBoxSize = isDesktop ? 480 : 200;
   const nodeRadius = isDesktop ? 100 : 60;
   const nodeRadiusLarge = isDesktop ? 180 : 120;
   const fontSize = {
@@ -68,9 +69,9 @@ const Konva = props => {
     {connects:null, isHover:false, isClick:false},
   ]);
   const titleBlocks = [
-    {x:padding, y:0, text:"HOW DOES INEQUALITY FACTOR INTO CLIMATE CHANGE?"},
-    {x:padding, y:1125, text:"HOW CAN CLIMATE CHANGE BE ADDRESSED IN DIFFERENT SOCIAL, POLITICAL, AND ECONOMIC SPHERES?"},
-    {x:padding, y:2413, text:"HOW DOES CLIMATE CHANGE IMPACT NON-CLIMATE RELATED FACTORS AT THE HUMAN SCALE? WHAT ARE THE OPPORTUNITIES HERE?"}
+    {x:padding, y:0, h:120, text:"HOW DOES INEQUALITY FACTOR INTO CLIMATE CHANGE?"},
+    {x:padding, y:1125, h:140, text:"HOW CAN CLIMATE CHANGE BE ADDRESSED IN DIFFERENT SOCIAL, POLITICAL, AND ECONOMIC SPHERES?"},
+    {x:padding, y:2413, h:170, text:"HOW DOES CLIMATE CHANGE IMPACT NON-CLIMATE RELATED FACTORS AT THE HUMAN SCALE? WHAT ARE THE OPPORTUNITIES HERE?"}
   ]
   
   const handleHover = (e, isHover, i) => {
@@ -102,9 +103,9 @@ const Konva = props => {
         { titleBlocks.map((t, i) => 
           <Group key={i} x={t.x} y={t.y}>
             <Rect 
-              width={padding*3}
-              height={120}
-              cornerRadius={15}
+              width={titleBoxSize}
+              height={t.h}
+              cornerRadius={60}
               fill={transWhite}
             />
             <Text 
@@ -112,13 +113,14 @@ const Konva = props => {
               fontSize={fontSize.alt}
               fontStyle='700'
               fontFamily={fontFamily}
-              y={-7}
+              y={0}
               align='center'
-              width={padding*3}
-              height={140}
+              width={titleBoxSize}
+              height={t.h}
               verticalAlign='middle'
-              padding={20}
+              padding={30}
               fill='white'
+              lineHeight={1.2}
             />
           </Group>
         )}
@@ -172,7 +174,7 @@ const Konva = props => {
               preventDefault={false}
             />
             <Text 
-              text="Text Here" 
+              text={props.data[i].title} 
               fontSize={(nodeCoords[i].main) ? fontSize.lg : fontSize.sm}
               fontFamily={fontFamily}
               x={nodeCoords[i].r * -1}

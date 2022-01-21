@@ -31,7 +31,7 @@
   --shadow: 0 0 10px 1px rgba(0,0,0,0.3);
   
   --round: 100%;
-  --corner-large: 1.8em;
+  --corner-large: 2.6em;
   --corner-normal: 0.8em;
   --corner-small: 0.5em;
   
@@ -144,9 +144,20 @@ nav.topbar {
 }
 .inner-menu {
   background-color: var(--colour-white);
-  padding: var(--inner-padding);
+  padding: var(--padding);
+  padding-top: var(--inner-padding);
   display: grid;
-  gap: var(--padding);
+  gap: calc(var(--inner-padding) * 2);
+}
+.menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--gap) / 2);
+}
+
+.menu h4 {
+  text-transform: unset;
+  font-size: 1.5em;
 }
 
 .menu .logo img, .menu button.icon {
@@ -178,7 +189,7 @@ button.highlight {
   --colour-text: var(--colour-purple);
 }
 button.round {
-  font: var(--med) 1.1em/1 var(--heading);
+  font: var(--med) 1.2em/1 var(--heading);
   width: 8em;
   height: 8em;
   border-radius: var(--round);
@@ -210,7 +221,7 @@ a {
   text-decoration: unset;
 }
 a.text {
-  font-weight: bolder;
+  text-decoration: underline;
 }
 
 .footer-buttons {
@@ -313,6 +324,7 @@ section.explore > .title {
 }
 
 .item-list,
+.item-list-med,
 .item-list-large {
   display: flex;
   flex-direction: column;
@@ -323,7 +335,10 @@ section.explore > .title {
 }
 
 .item-list-large {
-  gap: var(--padding);
+  gap: calc(var(--gap) * 4);
+}
+.item-list-med {
+  gap: calc(var(--gap) * 2);
 }
 
 .right-item-layout {
@@ -396,13 +411,18 @@ section.explore > .title {
   --colour-text: var(--colour-purple);
   padding: calc(var(--inner-padding) / 1.5);
   display: grid;
-  gap: var(--gap);
+  gap: calc(var(--gap) * 2);
   border-radius: var(--corner-large);
-  height: 70vh;
+  max-height: 70vh;
+  height: 100%;
   grid-template-rows: min-content auto max-content;
 }
 .inner-modal {
   overflow-y: auto;
+}
+.modal button.icon-round {
+  margin-top: calc(var(--gap) * -1);
+  margin-right: calc(var(--gap) * -1);
 }
 .modal .modal-topbar {
   align-items: center;
@@ -473,6 +493,10 @@ section.team .team-set .team-card .title {
   a:hover {
     text-decoration: underline;
   }
+  a.text:hover {
+    /* font-weight: bolder; */
+    background-color: rgba(210,100,170,0.4);
+  }
   
   .ps--active-y >.ps__rail-y:hover > .ps__thumb-y,
   .ps--active-x > .ps__rail-x:hover > .ps__thumb-x {
@@ -516,7 +540,7 @@ section.team .team-set .team-card .title {
   h3 {
     font-size: 2em;
   }
-  h4 {
+  h4, .menu h4 {
     font-size: 2em;
   }
   h5 {
@@ -530,11 +554,15 @@ section.team .team-set .team-card .title {
     font-size: 1.3em;
   }
   button.round {
-    font-size: 1.3em;
+    font-size: 1.6em;
   }
   
   .logo > :last-child {
     display: block;
+  }
+  
+  .menu-links {
+    gap: calc(var(--gap) / 4);
   }
   
   .section-wrapper[data-split="true"] {

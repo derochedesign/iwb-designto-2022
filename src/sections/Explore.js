@@ -4,6 +4,7 @@ import Canvas from "components/Canvas";
 import Konva from "components/Konva";
 import Modal from "components/Modal";
 import SectionWrapper from "components/SectionWrapper";
+import { data } from "data/Data";
 
 const Explore = props => {
   
@@ -27,7 +28,7 @@ const Explore = props => {
           <Modal i={currentModal} handleModal={handleModal} />
         }
       </SectionWrapper>
-      <Konva vW={props.vW} handleModal={handleModal}/>
+      <Konva vW={props.vW} handleModal={handleModal} data={data}/>
     </>
   )
 }

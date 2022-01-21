@@ -26,6 +26,16 @@ function App() {
       width: document.body.clientWidth
     })
     root.style.setProperty('--real-vh', window.innerHeight + "px");
+    
+    //mobile issues fix
+    setTimeout(() => {
+      setDimensions({
+        height: window.innerHeight,
+        width: document.body.clientWidth
+      })
+      root.style.setProperty('--real-vh', window.innerHeight + "px");
+    }, 1000);
+    
   },[]);
   
   useEffect(() => {
@@ -75,7 +85,7 @@ function App() {
                   <img src={closeIcon} />
                 </button>
               </div>
-              <div className="item-list" onClick={() => setMenuOpen(false)}>
+              <div className="menu-links" onClick={() => setMenuOpen(false)}>
                 <Link to="/"><h4>Home</h4></Link>
                 <Link to="/introduction"><h4>An Introduction</h4></Link>
                 <Link to="/explore"><h4>The Larger Picture</h4></Link>
