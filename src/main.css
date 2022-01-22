@@ -40,6 +40,7 @@
   --real-vh: 100vh;
   
   /* z-index */
+  --z-survey: 9999;
   --z-cursor: 1000;
   --z-topbar: 100;
   --z-sidebar: 101;
@@ -193,6 +194,17 @@ button.round {
   width: 8em;
   height: 8em;
   border-radius: var(--round);
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  grid-auto-rows: max-content;
+  gap: calc(var(--gap) / 3);
+}
+button.round span {
+  font-size: 0.5em;
+  font-family: var(--content);
+  font-weight: var(--regular);
+  color: var(--colour-text);
 }
 
 button.icon {
@@ -228,7 +240,7 @@ a.text {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  row-gap: var(--gap);
+  gap: var(--gap);
 }
 
 /* ________________SECTIONS__________________ */
@@ -236,8 +248,10 @@ a.text {
 section {
   padding: var(--padding);
   padding-bottom: 0;
+  max-width: 108em;
+  margin: 0 auto;
 }
-section:last-of-type, section:first-of-type, section.team {
+section:last-of-type, section:first-of-type {
   padding-bottom: var(--padding);
 }
 
@@ -274,11 +288,41 @@ section.explore > .title {
   padding-left: var(--padding);
 }
 
+/* ________________TEAM__________________ */
+
+section.team .team-set {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-auto-rows: max-content max-content;
+  gap: calc(var(--gap) * 2);
+  margin: 0 auto;
+  max-width: 40em;
+}
+section.team .team-set .team-card {
+  display: grid;
+  gap: var(--gap);
+  width: 100%;
+  grid-template-rows: repeat(3, max-content);
+  flex-grow: 0;
+  flex-shrink: 0;
+  justify-content: center;
+}
+section.team .team-set .team-card img {
+  width: 100%;
+  border-radius: var(--corner-small);
+}
+section.team .team-set .team-card .name {
+  text-transform: uppercase;
+}
+section.team .team-set .team-card .title {
+  line-height: 1.1;
+}
+
 /* ________________SECTION WRAPPER__________________ */
 
 .section-wrapper {
   display: grid;
-  gap: calc(var(--gap) * 2);
+  gap: calc(var(--gap) * 4);
 }
 .section-wrapper .section-wrapper-header {
   display: grid;
@@ -351,6 +395,33 @@ section.explore > .title {
   flex-direction: row;
   gap: calc(var(--gap) / 2);
   flex-wrap: wrap;
+}
+
+.center-align {
+  text-align: center;
+  max-width: 50em;
+  display: grid;
+  gap: var(--gap);
+  margin: 0 auto;
+  padding-top: var(--inner-padding);
+}
+.center-align button {
+  margin: 0 auto;
+}
+
+.partner-logos {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  max-width: 40em;
+  width: 100%;
+  margin: 0 auto;
+}
+.partner-logos img {
+  width: 100%;
+}
+
+.site-info {
+  margin: 0 auto;
 }
 
 .grad-bg {
@@ -437,35 +508,6 @@ section.explore > .title {
   background-color: rgba(0,0,0,0.3);
 }
 
-/* ________________TEAM__________________ */
-
-section.team .team-set {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  row-gap: calc(var(--gap) * 2);
-  column-gap: calc(var(--gap) / 2);
-}
-section.team .team-set .team-card {
-  display: grid;
-  gap: var(--gap);
-  width: 10em;
-  grid-template-rows: repeat(3, max-content);
-  flex-grow: 0;
-  flex-shrink: 0;
-}
-section.team .team-set .team-card img {
-  width: 100%;
-  border-radius: var(--corner-small);
-}
-section.team .team-set .team-card .name {
-  text-transform: uppercase;
-}
-section.team .team-set .team-card .title {
-  line-height: 1.1;
-}
-
 /* ________________HOVER__________________ */
 
 @media not all and (hover: none) {
@@ -479,7 +521,7 @@ section.team .team-set .team-card .title {
   }
   button.round:hover {
     background-color: var(--colour-white);
-    color: var(--colour-black);
+    --colour-text: var(--colour-black);
   }
   
   button.icon:hover {
@@ -490,11 +532,12 @@ section.team .team-set .team-card .title {
     filter: brightness(1.2);
     background-color: var(--colour-purple);
   }
-  a:hover {
+  a.nav:hover {
     text-decoration: underline;
   }
   a.text:hover {
     /* font-weight: bolder; */
+    text-decoration: underline;
     background-color: rgba(210,100,170,0.4);
   }
   
@@ -584,10 +627,16 @@ section.team .team-set .team-card .title {
     grid-row: 2;
   }
   
+  section.team .team-set {
+    grid-template-columns: repeat(4,1fr);
+    gap: calc(var(--gap) * 2);
+    max-width: 80em;
+  }
   section.team .team-set .team-card {
-    width: 20vw;
-    max-width: 18em;
-    min-width: 14em;
+    width: 100%;
+  }
+  section.team .team-set .team-card .name {
+    font-size: 1.8vw;
   }
 }
 

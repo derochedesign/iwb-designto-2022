@@ -6,29 +6,35 @@ const Konva = props => {
   const isDesktop = (props.vW > 1200);
   const padding = isDesktop ? 128 : 48;
   const w = props.vW;
-  const HEIGHT = 3750;
+  const HEIGHT = isDesktop ? 3750 : 2700;
   const HOVERMULT = 1.05;
   const purple = "#5514ac";
   const transWhite = "rgba(255,255,255,0.2)";
   const titleBoxSize = isDesktop ? 480 : 200;
-  const nodeRadius = isDesktop ? 100 : 60;
-  const nodeRadiusLarge = isDesktop ? 180 : 120;
+  const nodeRadius = isDesktop ? 100 : 64;
+  const nodeRadiusLarge = isDesktop ? 180 : 110;
   const fontSize = {
     sm: isDesktop ? 22 : 18,
     lg: isDesktop ? 32 : 24,
     alt: isDesktop ? 22 : 18
   }
   const fontFamily = "Roboto";
+  const testVal = 0.8;
   
   //check for too close to edge: check if calculate xpos minus half the circle results in negative number. if so, add that val to xpos?
   
-  const nodeGroupCoords = [
+  const nodeGroupCoordsDesktop = [
     {x:0.27, y:588, r:380},
     {x:0.3, y:1746, r:380},
     {x:0.5, y:3132, r:530},
   ]
+  const nodeGroupCoordsMobile = [
+    {x:0.1*(w/300), y:520, r:260},
+    {x:0.15*(w/300), y:1480, r:260},
+    {x:0.3*(w/300), y:2332, r:280},
+  ]
   
-  const nodeCoords = [
+  const nodeCoordsDesktop = [
     {x:0.67, y:206, main:true, r:nodeRadiusLarge},//0
     {x:0.34, y:385, main:false, r:nodeRadius},
     {x:0.12, y:600, main:false, r:nodeRadius},
@@ -45,9 +51,32 @@ const Konva = props => {
     {x:0.32, y:3382, main:false, r:nodeRadius},
     {x:0.56, y:3432, main:false, r:nodeRadius},
     {x:0.78, y:3014, main:false, r:nodeRadius},//13
-    
+     
     {x:0.92, y:1897, main:false, r:nodeRadius},//14
   ]
+  const nodeCoordsMobile = [
+    {x:0.67, y:206, main:true, r:nodeRadiusLarge},//0
+    {x:0.34, y:504*testVal, main:false, r:nodeRadius},
+    {x:0.1, y:690*testVal, main:false, r:nodeRadius},
+    {x:0.50, y:780*testVal, main:false, r:nodeRadius},
+    {x:0.79, y:1050*testVal, main:false, r:nodeRadius},//4
+    
+    {x:0.86, y:1445*testVal, main:true, r:nodeRadiusLarge},//5
+    {x:0.15, y:1656*testVal, main:false, r:nodeRadius},
+    {x:0.19, y:1870*testVal, main:false, r:nodeRadius},
+    {x:0.44, y:2028*testVal, main:false, r:nodeRadius},//8
+    
+    {x:0.78, y:2424*testVal, main:true, r:nodeRadiusLarge},//9
+    {x:0.16, y:2750*testVal, main:false, r:nodeRadius},
+    {x:0.26, y:2950*testVal, main:false, r:nodeRadius},
+    {x:0.42, y:3138*testVal, main:false, r:nodeRadius},
+    {x:0.84, y:2991*testVal, main:false, r:nodeRadius},//13
+    
+    {x:0.1, y:2330*testVal, main:false, r:nodeRadius},//14
+  ]
+  const nodeCoords = (isDesktop) ? nodeCoordsDesktop : nodeCoordsMobile;
+  const nodeGroupCoords = (isDesktop) ? nodeGroupCoordsDesktop : nodeGroupCoordsMobile;
+  
   const [nodeArr, setNodeArr] = useState([
     {connects:null, isHover:false, isClick:false},
     {connects:0, isHover:false, isClick:false},
@@ -178,7 +207,8 @@ const Konva = props => {
               fontSize={(nodeCoords[i].main) ? fontSize.lg : fontSize.sm}
               fontFamily={fontFamily}
               x={nodeCoords[i].r * -1}
-              y={-10}
+              y={nodeCoords[i].r * -1}
+              height={nodeCoords[i].r * 2}
               align='center'
               width={nodeCoords[i].r * 2}
               verticalAlign='middle'

@@ -86,11 +86,11 @@ function App() {
                 </button>
               </div>
               <div className="menu-links" onClick={() => setMenuOpen(false)}>
-                <Link to="/"><h4>Home</h4></Link>
-                <Link to="/introduction"><h4>An Introduction</h4></Link>
-                <Link to="/explore"><h4>The Larger Picture</h4></Link>
-                <Link to="/summary"><h4>Climate-ready Communities</h4></Link>
-                <Link to="/connect"><h4>Connect</h4></Link>
+                <Link to="/" className="nav"><h4>Home</h4></Link>
+                <Link to="/introduction" className="nav"><h4>An Introduction</h4></Link>
+                <Link to="/explore" className="nav"><h4>The Larger Picture</h4></Link>
+                <Link to="/summary" className="nav"><h4>Climate-ready Communities</h4></Link>
+                <Link to="/connect" className="nav"><h4>Connect</h4></Link>
               </div>
             </div>
           </div>
