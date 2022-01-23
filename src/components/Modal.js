@@ -6,6 +6,7 @@ import { data } from "data/Data";
 const Modal = props => {
   
   const BodyText = data[props.i].info;
+  console.log("HFKJA");
   
   return (
     <>  

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Canvas from "components/Canvas";
 import Konva from "components/Konva";
@@ -17,11 +17,15 @@ const Explore = props => {
     setShowModal(!showModal);
   }
   
+  useEffect(() => {
+    showModal ? document.body.classList.add("modal-active") : document.body.classList.remove("modal-active");
+  },[showModal]);
+  
   return (
     <>
       <SectionWrapper 
-        className={"team"}
-        title="The Larger Picture"
+        className={"explore"}
+        title="Connect the Dots"
         refC={props.refC}
         split={false}>
         { (showModal) &&

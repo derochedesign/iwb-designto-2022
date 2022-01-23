@@ -33,7 +33,7 @@ const MainStack = props => {
   useEffect(() => {
     
     let _ref;
-    let _offset = 0;
+    let _offset = (props.vS.width > 1100) ? 0 : -80;
     const curr = psRef.current;
     
     if (props.pos === 1) {
@@ -47,7 +47,6 @@ const MainStack = props => {
     else if (props.pos === 3) {
       //explore
       _ref = exploreRef.current;
-      _offset = -140;
     }
     else if (props.pos === 4) {
       //footer

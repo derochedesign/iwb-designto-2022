@@ -1,45 +1,88 @@
 import { Stage, Layer, Line, Circle, Group, Text, Rect } from 'react-konva';
-import { useState, useEffect } from 'react';
+import { useState, useRef, createRef, useEffect } from 'react';
 
 const Konva = props => {
+
+  const [isDragging, setIsDragging] = useState(false);
   
   const isDesktop = (props.vW > 1200);
+  const isTablet = (props.vW > 800);
+  const isTiny = props.vW < 376;
   const padding = isDesktop ? 128 : 48;
-  const w = props.vW;
-  const HEIGHT = isDesktop ? 3750 : 2700;
-  const HOVERMULT = 1.05;
+  const HEIGHT = isDesktop ? 3750 : (isTablet ? 2750 : 3250);
+  const HOVERMULT = 1;
+  const MAXWIDTH = 108 * 16;
+  const w = (props.vW < MAXWIDTH) ? props.vW : MAXWIDTH
   const purple = "#5514ac";
-  const transWhite = "rgba(255,255,255,0.2)";
-  const titleBoxSize = isDesktop ? 480 : 200;
-  const nodeRadius = isDesktop ? 100 : 64;
-  const nodeRadiusLarge = isDesktop ? 180 : 110;
+  const transWhite = "rgba(255,255,255,0.3)";
+  const transWhiteText = "rgba(255,255,255,0.4)";
+  const titleBoxSize = isDesktop ? 480 : 240;
+  const nodeRadius = (isDesktop) ? 100 : (isTablet ? 80 : (isTiny ? 56 : 64));
+  const nodeRadiusLarge = (isDesktop) ? 180 : (isTablet ? 135 : (isTiny ? 86 : 110));
   const fontSize = {
-    sm: isDesktop ? 22 : 18,
-    lg: isDesktop ? 32 : 24,
-    alt: isDesktop ? 22 : 18
+    sm: isDesktop ? 22 : (isTiny ? 14 : 16),
+    lg: isDesktop ? 32 : (isTiny ? 20 : 24),
+    alt: isDesktop ? 22 : 18,
+    mega: isDesktop ? 64 : (isTablet ? 44 : (isTiny ? 34 : 40))
   }
   const fontFamily = "Roboto";
+  const fontFamilyAlt = "knockout-spec";
   const testVal = 0.8;
+  const tabYShift = 100;
+  const tabYShift2 = -100;
+  const mobYShift = 100;
+  const mobYShift2 = 100;
+  const mobYShift3 = 400;
   
   //check for too close to edge: check if calculate xpos minus half the circle results in negative number. if so, add that val to xpos?
   
+  const differenceRatio = (minA, maxA, minB, maxB) => {
+    let difA = maxA - minA;
+    let difB = maxB - minB;
+    return (((w-minA)/difA)*difB)+minB;
+  }
+  
+  const titleBlocksDesktop = [
+    {x:padding, y:0, w:titleBoxSize, h:400, text:"HOW DOES INEQUALITY FACTOR INTO CLIMATE CHANGE?"},
+    {x:padding, y:1000, w:titleBoxSize*1.2, h:600, text:"HOW CAN CLIMATE CHANGE BE ADDRESSED IN DIFFERENT SOCIAL, POLITICAL, AND ECONOMIC SPHERES?"},
+    {x:padding, y:2513, w:titleBoxSize*1.4, h:600, text:"HOW DOES CLIMATE CHANGE IMPACT NON-CLIMATE RELATED FACTORS AT THE HUMAN SCALE?"},
+    {x:padding, y:3513, w:titleBoxSize*1.4, h:600, text:"WHAT ARE THE OPPORTUNITIES HERE?"}
+  ]
+  const titleBlocksTablet = [
+    {x:padding, y:60, w:400, h:400, text:"HOW DOES INEQUALITY FACTOR INTO CLIMATE CHANGE?"},
+    {x:padding, y:800, w:500, h:600, text:"HOW CAN CLIMATE CHANGE BE ADDRESSED IN DIFFERENT SOCIAL, POLITICAL, AND ECONOMIC SPHERES?"},
+    {x:padding, y:1660, w:500, h:600, text:"HOW DOES CLIMATE CHANGE IMPACT NON-CLIMATE RELATED FACTORS AT THE HUMAN SCALE?"},
+    {x:padding, y:2563, w:500, h:600, text:"WHAT ARE THE OPPORTUNITIES HERE?"}
+  ]
+  const titleBlocksMobile = [
+    {x:padding, y:0, w:w, h:220, text:"HOW DOES INEQUALITY FACTOR INTO CLIMATE CHANGE?"},
+    {x:padding, y:980, w:w, h:600, text:"HOW CAN CLIMATE CHANGE BE ADDRESSED IN DIFFERENT SOCIAL, POLITICAL, AND ECONOMIC SPHERES?"},
+    {x:padding, y:1970, w:w, h:600, text:"HOW DOES CLIMATE CHANGE IMPACT NON-CLIMATE RELATED FACTORS AT THE HUMAN SCALE?"},
+    {x:padding, y:3075, w:w, h:600, text:"WHAT ARE THE OPPORTUNITIES HERE?"}
+  ]
+  
   const nodeGroupCoordsDesktop = [
-    {x:0.27, y:588, r:380},
-    {x:0.3, y:1746, r:380},
-    {x:0.5, y:3132, r:530},
+    {x:0.27*(w/(w+200)), y:588, r:380},
+    {x:0.35*(w/(w+200)), y:1720, r:380},
+    {x:0.57*(w/(w+200)), y:3150, r:differenceRatio(1200,1792,417,561)},
+  ]
+  const nodeGroupCoordsTablet = [
+    {x:0.3, y:520, r:differenceRatio(800,1200,220,260)},
+    {x:0.26, y:1470+tabYShift2, r:differenceRatio(800,1200,270,300)},
+    {x:0.5*(w/(w+200)), y:2310+tabYShift+tabYShift2, r:differenceRatio(800,1200,270,350)},
   ]
   const nodeGroupCoordsMobile = [
-    {x:0.1*(w/300), y:520, r:260},
-    {x:0.15*(w/300), y:1480, r:260},
-    {x:0.3*(w/300), y:2332, r:280},
+    {x:0.1*(w/300), y:520+mobYShift, r:260},
+    {x:0.25, y:1490+mobYShift+mobYShift2, r:260},
+    {x:0.4, y:2350+mobYShift+mobYShift3, r:differenceRatio(100,800,270,310)},
   ]
   
   const nodeCoordsDesktop = [
-    {x:0.67, y:206, main:true, r:nodeRadiusLarge},//0
+    {x:0.72, y:206, main:true, r:nodeRadiusLarge},//0
     {x:0.34, y:385, main:false, r:nodeRadius},
     {x:0.12, y:600, main:false, r:nodeRadius},
     {x:0.36, y:762, main:false, r:nodeRadius},
-    {x:0.79, y:726, main:false, r:nodeRadius},//4
+    {x:0.82, y:726, main:false, r:nodeRadius},//4
     
     {x:0.86, y:1316, main:true, r:nodeRadiusLarge},//5
     {x:0.25, y:1522, main:false, r:nodeRadius},
@@ -54,28 +97,49 @@ const Konva = props => {
      
     {x:0.92, y:1897, main:false, r:nodeRadius},//14
   ]
-  const nodeCoordsMobile = [
-    {x:0.67, y:206, main:true, r:nodeRadiusLarge},//0
+  const nodeCoordsTablet = [
+    {x:0.8, y:156, main:true, r:nodeRadiusLarge},//0
     {x:0.34, y:504*testVal, main:false, r:nodeRadius},
-    {x:0.1, y:690*testVal, main:false, r:nodeRadius},
-    {x:0.50, y:780*testVal, main:false, r:nodeRadius},
-    {x:0.79, y:1050*testVal, main:false, r:nodeRadius},//4
+    {x:0.15, y:690*testVal, main:false, r:nodeRadius},
+    {x:0.40, y:780*testVal, main:false, r:nodeRadius},
+    {x:0.84, y:900*testVal, main:false, r:nodeRadius},//4
     
-    {x:0.86, y:1445*testVal, main:true, r:nodeRadiusLarge},//5
-    {x:0.15, y:1656*testVal, main:false, r:nodeRadius},
-    {x:0.19, y:1870*testVal, main:false, r:nodeRadius},
-    {x:0.44, y:2028*testVal, main:false, r:nodeRadius},//8
+    {x:0.86, y:1445*testVal+tabYShift2, main:true, r:nodeRadiusLarge},//5
+    {x:0.15, y:1656*testVal+tabYShift2, main:false, r:nodeRadius},
+    {x:0.19, y:1870*testVal+tabYShift2, main:false, r:nodeRadius},
+    {x:0.4, y:2008*testVal+tabYShift2, main:false, r:nodeRadius},//8
     
-    {x:0.78, y:2424*testVal, main:true, r:nodeRadiusLarge},//9
-    {x:0.16, y:2750*testVal, main:false, r:nodeRadius},
-    {x:0.26, y:2950*testVal, main:false, r:nodeRadius},
-    {x:0.42, y:3138*testVal, main:false, r:nodeRadius},
-    {x:0.84, y:2991*testVal, main:false, r:nodeRadius},//13
+    {x:0.8, y:2424*testVal+tabYShift+tabYShift2, main:true, r:nodeRadiusLarge},//9
+    {x:0.28, y:2700*testVal+tabYShift+tabYShift2, main:false, r:nodeRadius},
+    {x:0.20, y:2950*testVal+tabYShift+tabYShift2, main:false, r:nodeRadius},
+    {x:0.36, y:3108*testVal+tabYShift+tabYShift2, main:false, r:nodeRadius},
+    {x:0.62, y:2991*testVal+tabYShift+tabYShift2, main:false, r:nodeRadius},//13
     
-    {x:0.1, y:2330*testVal, main:false, r:nodeRadius},//14
+    {x:0.1, y:2470*testVal+tabYShift+tabYShift2, main:false, r:nodeRadius},//14
   ]
-  const nodeCoords = (isDesktop) ? nodeCoordsDesktop : nodeCoordsMobile;
-  const nodeGroupCoords = (isDesktop) ? nodeGroupCoordsDesktop : nodeGroupCoordsMobile;
+  const nodeCoordsMobile = [
+    {x:0.67, y:206+mobYShift, main:true, r:nodeRadiusLarge},//0
+    {x:0.34, y:504*testVal+mobYShift, main:false, r:nodeRadius},
+    {x:0.1, y:690*testVal+mobYShift, main:false, r:nodeRadius},
+    {x:0.40*(w/(w-100)), y:780*testVal+mobYShift, main:false, r:nodeRadius},
+    {x:0.83, y:980*testVal+mobYShift, main:false, r:nodeRadius},//4
+    
+    {x:0.86, y:1445*testVal+mobYShift+mobYShift2, main:true, r:nodeRadiusLarge},//5
+    {x:0.15, y:1656*testVal+mobYShift+mobYShift2, main:false, r:nodeRadius},
+    {x:0.19, y:1870*testVal+mobYShift+mobYShift2, main:false, r:nodeRadius},
+    {x:0.44, y:2028*testVal+mobYShift+mobYShift2, main:false, r:nodeRadius},//8
+    
+    {x:0.78, y:2224*testVal+mobYShift+mobYShift2+mobYShift3, main:true, r:nodeRadiusLarge},//9
+    {x:0.16, y:2750*testVal+mobYShift+mobYShift3, main:false, r:nodeRadius},
+    {x:0.26, y:2950*testVal+mobYShift+mobYShift3, main:false, r:nodeRadius},
+    {x:0.42, y:3138*testVal+mobYShift+mobYShift3, main:false, r:nodeRadius},
+    {x:0.7*(w/(w-50)), y:2991*testVal+mobYShift+mobYShift3, main:false, r:nodeRadius},//13
+    
+    {x:0.1, y:2900*testVal, main:false, r:nodeRadius},//14
+  ]
+  const nodeCoords = (isDesktop) ? nodeCoordsDesktop : (isTablet ? nodeCoordsTablet : nodeCoordsMobile);
+  const nodeGroupCoords = (isDesktop) ? nodeGroupCoordsDesktop : (isTablet ? nodeGroupCoordsTablet : nodeGroupCoordsMobile);
+  const titleBlocks = (isDesktop) ? titleBlocksDesktop : (isTablet ? titleBlocksTablet : titleBlocksMobile);
   
   const [nodeArr, setNodeArr] = useState([
     {connects:null, isHover:false, isClick:false},
@@ -97,19 +161,26 @@ const Konva = props => {
     
     {connects:null, isHover:false, isClick:false},
   ]);
-  const titleBlocks = [
-    {x:padding, y:0, h:120, text:"HOW DOES INEQUALITY FACTOR INTO CLIMATE CHANGE?"},
-    {x:padding, y:1125, h:140, text:"HOW CAN CLIMATE CHANGE BE ADDRESSED IN DIFFERENT SOCIAL, POLITICAL, AND ECONOMIC SPHERES?"},
-    {x:padding, y:2413, h:170, text:"HOW DOES CLIMATE CHANGE IMPACT NON-CLIMATE RELATED FACTORS AT THE HUMAN SCALE? WHAT ARE THE OPPORTUNITIES HERE?"}
-  ]
+  
+  const refs = useRef(nodeCoords.map(() => createRef()));
   
   const handleHover = (e, isHover, i) => {
     let _nodeArr = nodeArr;
     if (isHover && !nodeArr[i].isHover) {
+      refs.current[i].current.to({
+        scaleX: 1.04,
+        scaleY: 1.04,
+        duration: 0.3
+      })
       _nodeArr[i].isHover = true;
       setNodeArr([..._nodeArr]);
     }
     else if (!isHover && nodeArr[i].isHover){
+      refs.current[i].current.to({
+        scaleX: 1,
+        scaleY: 1,
+        duration: 0.1
+      })
       _nodeArr[i].isHover = false;
       setNodeArr([..._nodeArr]);
     }
@@ -121,35 +192,50 @@ const Konva = props => {
     props.handleModal(i);
   }
   
+  const handleTap = (e,i) => {
+
+    if (e.type === "touchend") {
+      setIsDragging(false);
+      if (!isDragging) {
+        handleClick(e, i);
+      }
+    }
+    else if (e.type === "touchmove") {
+      setIsDragging(true);
+    }
+    
+  }
+  
   const computeX = x => {
     let _x = (w - padding * 2) * x + padding;
     return _x;
   }
   //style={{marginLeft:`${padding}px`}}
   return (
-    <Stage width={w} height={HEIGHT} > 
+    <Stage width={w} height={HEIGHT} style={(props.vW > MAXWIDTH) ? {marginLeft:`${(props.vW-MAXWIDTH) / 2}px`, marginTop:"32px"} : {marginLeft:"unset", marginTop:"32px"}} > 
       <Layer>
         { titleBlocks.map((t, i) => 
-          <Group key={i} x={t.x} y={t.y}>
-            <Rect 
+          <Group key={i} x={isDesktop ? 128 : (isTablet ? 48 : 0)} y={t.y} preventDefault={false}>
+            {/* <Rect 
               width={titleBoxSize}
               height={t.h}
               cornerRadius={60}
               fill={transWhite}
-            />
+            /> */}
             <Text 
               text={t.text} 
-              fontSize={fontSize.alt}
+              fontSize={fontSize.mega}
               fontStyle='700'
-              fontFamily={fontFamily}
+              fontFamily={fontFamilyAlt}
               y={0}
-              align='center'
-              width={titleBoxSize}
+              x={0}
+              align="left"
+              width={t.w}
               height={t.h}
-              verticalAlign='middle'
               padding={30}
-              fill='white'
-              lineHeight={1.2}
+              fill={transWhiteText}
+              lineHeight={0.85}
+              preventDefault={false}
             />
           </Group>
         )}
@@ -162,6 +248,7 @@ const Konva = props => {
               radius={g.r}
               fill={transWhite}
               preventDefault={false}
+              key={i}
             />
           )}
         </Group>
@@ -175,8 +262,8 @@ const Konva = props => {
               strokeWidth={2}
               dash={[7,12]}
               dashEnabled={!node.isClick}
-              zIndex={-1}
               preventDefault={false}
+              key={i}
             />
           
         )}
@@ -185,6 +272,7 @@ const Konva = props => {
             x={computeX(nodeCoords[i].x)}
             y={nodeCoords[i].y}
             key={i}
+            ref={refs.current[i]}
             onMouseEnter={(e) => {
               handleHover(e, true, i);
               const container = e.target.getStage().container();
@@ -196,7 +284,10 @@ const Konva = props => {
               container.style.cursor = "default";
             }} 
             onClick={(e) => handleClick(e,i)}
-            onTap={(e) => handleClick(e,i)}>
+            onTouchStart={(e) => handleTap(e,i)}
+            onTouchMove={(e) => handleTap(e,i)}
+            onTouchEnd={(e) => handleTap(e,i)}
+            >
             <Circle 
               fill={(node.isClick) ? purple : "white"}
               radius={(isDesktop && node.isHover) ? nodeCoords[i].r * HOVERMULT : nodeCoords[i].r}
@@ -212,9 +303,10 @@ const Konva = props => {
               align='center'
               width={nodeCoords[i].r * 2}
               verticalAlign='middle'
-              padding={6}
+              padding={12}
               fill={(node.isClick) ? "white" : purple}
               preventDefault={false}
+              fontStyle='300'
             />
           </Group>
         )}  
