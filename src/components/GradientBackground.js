@@ -8,15 +8,18 @@ const GradientBackground = props => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
+    const SCALE = window.devicePixelRatio;
     contextRef.current = context;
-    canvas.height = props.height;
-    canvas.width = props.width;
+    canvas.height = Math.floor(props.height * SCALE);
+    canvas.width = Math.floor(props.width * SCALE);
     canvas.style.height = `${props.height}px`;
+    context.scale(SCALE,SCALE)
+    console.log("REDRAW");
     draw(context);
   },[props.width, props.height]);
   
   const draw = c => {
-    
+    console.log(props.height);
     const h = props.height;
     const w = props.width;
     const respVal = (w/(w+100));

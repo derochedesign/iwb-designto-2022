@@ -10,7 +10,7 @@ const Konva = props => {
   const isTiny = props.vW < 376;
   const padding = isDesktop ? 128 : 48;
   const HEIGHT = isDesktop ? 3750 : (isTablet ? 2750 : 3250);
-  const HOVERMULT = 1;
+  const HOVERMULT = 1.03;
   const MAXWIDTH = 108 * 16;
   const w = (props.vW < MAXWIDTH) ? props.vW : MAXWIDTH
   const purple = "#5514ac";
@@ -20,10 +20,10 @@ const Konva = props => {
   const nodeRadius = (isDesktop) ? 100 : (isTablet ? 80 : (isTiny ? 56 : 64));
   const nodeRadiusLarge = (isDesktop) ? 180 : (isTablet ? 135 : (isTiny ? 86 : 110));
   const fontSize = {
-    sm: isDesktop ? 22 : (isTiny ? 14 : 16),
+    sm: isDesktop ? 22 : (isTiny ? 13 : 16),
     lg: isDesktop ? 32 : (isTiny ? 20 : 24),
     alt: isDesktop ? 22 : 18,
-    mega: isDesktop ? 64 : (isTablet ? 44 : (isTiny ? 34 : 40))
+    mega: isDesktop ? 62 : (isTablet ? 44 : (isTiny ? 30 : 36))
   }
   const fontFamily = "Roboto";
   const fontFamilyAlt = "knockout-spec";
@@ -43,22 +43,22 @@ const Konva = props => {
   }
   
   const titleBlocksDesktop = [
-    {x:padding, y:0, w:titleBoxSize, h:400, text:"HOW DOES INEQUALITY FACTOR INTO CLIMATE CHANGE?"},
-    {x:padding, y:1000, w:titleBoxSize*1.2, h:600, text:"HOW CAN CLIMATE CHANGE BE ADDRESSED IN DIFFERENT SOCIAL, POLITICAL, AND ECONOMIC SPHERES?"},
-    {x:padding, y:2513, w:titleBoxSize*1.4, h:600, text:"HOW DOES CLIMATE CHANGE IMPACT NON-CLIMATE RELATED FACTORS AT THE HUMAN SCALE?"},
-    {x:padding, y:3513, w:titleBoxSize*1.4, h:600, text:"WHAT ARE THE OPPORTUNITIES HERE?"}
+    {x:padding, y:30, w:titleBoxSize, h:400, text:"HOW DOES INEQUALITY FACTOR INTO CLIMATE CHANGE?"},
+    {x:padding, y:1020, w:700, h:600, text:"HOW CAN CLIMATE CHANGE BE ADDRESSED IN DIFFERENT SOCIAL, POLITICAL, AND ECONOMIC SPHERES?"},
+    {x:padding, y:2483, w:700, h:600, text:"HOW DOES CLIMATE CHANGE IMPACT NON-CLIMATE RELATED FACTORS AT THE HUMAN SCALE?"},
+    {x:padding, y:3543, w:titleBoxSize*1.4, h:600, text:"WHAT ARE THE OPPORTUNITIES HERE?"}
   ]
   const titleBlocksTablet = [
-    {x:padding, y:60, w:400, h:400, text:"HOW DOES INEQUALITY FACTOR INTO CLIMATE CHANGE?"},
-    {x:padding, y:800, w:500, h:600, text:"HOW CAN CLIMATE CHANGE BE ADDRESSED IN DIFFERENT SOCIAL, POLITICAL, AND ECONOMIC SPHERES?"},
-    {x:padding, y:1660, w:500, h:600, text:"HOW DOES CLIMATE CHANGE IMPACT NON-CLIMATE RELATED FACTORS AT THE HUMAN SCALE?"},
-    {x:padding, y:2563, w:500, h:600, text:"WHAT ARE THE OPPORTUNITIES HERE?"}
+    {x:padding, y:90, w:400, h:400, text:"HOW DOES INEQUALITY FACTOR INTO CLIMATE CHANGE?"},
+    {x:padding, y:850, w:500, h:600, text:"HOW CAN CLIMATE CHANGE BE ADDRESSED IN DIFFERENT SOCIAL, POLITICAL, AND ECONOMIC SPHERES?"},
+    {x:padding, y:1710, w:500, h:600, text:"HOW DOES CLIMATE CHANGE IMPACT NON-CLIMATE RELATED FACTORS AT THE HUMAN SCALE?"},
+    {x:padding, y:2593, w:500, h:600, text:"WHAT ARE THE OPPORTUNITIES HERE?"}
   ]
   const titleBlocksMobile = [
-    {x:padding, y:0, w:w, h:220, text:"HOW DOES INEQUALITY FACTOR INTO CLIMATE CHANGE?"},
-    {x:padding, y:980, w:w, h:600, text:"HOW CAN CLIMATE CHANGE BE ADDRESSED IN DIFFERENT SOCIAL, POLITICAL, AND ECONOMIC SPHERES?"},
-    {x:padding, y:1970, w:w, h:600, text:"HOW DOES CLIMATE CHANGE IMPACT NON-CLIMATE RELATED FACTORS AT THE HUMAN SCALE?"},
-    {x:padding, y:3075, w:w, h:600, text:"WHAT ARE THE OPPORTUNITIES HERE?"}
+    {x:padding, y:40, w:w-padding, h:220, text:"HOW DOES INEQUALITY FACTOR INTO CLIMATE CHANGE?"},
+    {x:padding, y:1020, w:w-padding, h:600, text:"HOW CAN CLIMATE CHANGE BE ADDRESSED IN DIFFERENT SOCIAL, POLITICAL, AND ECONOMIC SPHERES?"},
+    {x:padding, y:2010, w:w-padding, h:600, text:"HOW DOES CLIMATE CHANGE IMPACT NON-CLIMATE RELATED FACTORS AT THE HUMAN SCALE?"},
+    {x:padding, y:3115, w:w-padding, h:600, text:"WHAT ARE THE OPPORTUNITIES HERE?"}
   ]
   
   const nodeGroupCoordsDesktop = [
@@ -167,20 +167,21 @@ const Konva = props => {
   const handleHover = (e, isHover, i) => {
     let _nodeArr = nodeArr;
     if (isHover && !nodeArr[i].isHover) {
-      refs.current[i].current.to({
-        scaleX: 1.04,
-        scaleY: 1.04,
-        duration: 0.3
-      })
+      //too laggy on some
+      // refs.current[i].current.to({
+      //   scaleX: 1.04,
+      //   scaleY: 1.04,
+      //   duration: 0.3
+      // })
       _nodeArr[i].isHover = true;
       setNodeArr([..._nodeArr]);
     }
     else if (!isHover && nodeArr[i].isHover){
-      refs.current[i].current.to({
-        scaleX: 1,
-        scaleY: 1,
-        duration: 0.1
-      })
+      // refs.current[i].current.to({
+      //   scaleX: 1,
+      //   scaleY: 1,
+      //   duration: 0.1
+      // })
       _nodeArr[i].isHover = false;
       setNodeArr([..._nodeArr]);
     }
@@ -215,7 +216,7 @@ const Konva = props => {
     <Stage width={w} height={HEIGHT} style={(props.vW > MAXWIDTH) ? {marginLeft:`${(props.vW-MAXWIDTH) / 2}px`, marginTop:"32px"} : {marginLeft:"unset", marginTop:"32px"}} > 
       <Layer>
         { titleBlocks.map((t, i) => 
-          <Group key={i} x={isDesktop ? 128 : (isTablet ? 48 : 0)} y={t.y} preventDefault={false}>
+          <Group key={i} x={isDesktop ? 128 : (isTablet ? 48 : 32)} y={t.y} preventDefault={false}>
             {/* <Rect 
               width={titleBoxSize}
               height={t.h}
@@ -232,7 +233,7 @@ const Konva = props => {
               align="left"
               width={t.w}
               height={t.h}
-              padding={30}
+              padding={0}
               fill={transWhiteText}
               lineHeight={0.85}
               preventDefault={false}
@@ -284,7 +285,6 @@ const Konva = props => {
               container.style.cursor = "default";
             }} 
             onClick={(e) => handleClick(e,i)}
-            onTouchStart={(e) => handleTap(e,i)}
             onTouchMove={(e) => handleTap(e,i)}
             onTouchEnd={(e) => handleTap(e,i)}
             >

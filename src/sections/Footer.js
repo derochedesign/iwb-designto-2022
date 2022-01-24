@@ -1,6 +1,6 @@
 import MailingList from "components/MailingList";
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import report from "download/IDS22-report.pdf";
 import SectionWrapper from "components/SectionWrapper";
 import iwbImg from "img/partners/iwb.svg";
@@ -11,10 +11,18 @@ const Footer = props => {
   
   const [isSubmit, setIsSubmit] = useState(false);
   const [startMail, setStartMail] = useState(false);
+  const imgsLoaded = useRef(0);
   const sources = [
     "https://institutewithoutboundaries.ca/",
     "https://www.instagram.com/institutewithoutboundaries"
   ]
+  
+  const handleLoad = () => {
+    const imgs = 3;
+    imgsLoaded.current = imgsLoaded.current + 1;
+    if (imgsLoaded.current === imgs) props.setImgLoaded("footer");
+  }
+  
   return (
     <SectionWrapper 
       className={"footer"}
@@ -29,9 +37,9 @@ const Footer = props => {
           <a href={sources[1]} rel="noopener" target={"_blank"}><button className="round">Follow us on IG</button></a>
         </div>
         <div className="item-row partner-logos">
-          <img src={gbcImg} alt="George Brown College logo" />
-          <img src={iwbImg} alt="IwB logo" />
-          <img src={designtoImg} alt="DesignTO logo" />
+          <img src={gbcImg} alt="George Brown College logo" onLoad={handleLoad}/>
+          <img src={iwbImg} alt="IwB logo"  onLoad={handleLoad}/>
+          <img src={designtoImg} alt="DesignTO logo" onLoad={handleLoad}/>
         </div>
         <div className="item-row site-info">
           <h5>&#169; IDS 2022</h5>

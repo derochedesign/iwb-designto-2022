@@ -17,6 +17,8 @@
   --colour-black: black;
   --colour-white: white;
   --colour-purple: #5514ac;
+  --colour-orange: #f65e31;
+  --colour-grey: #232323;
   
   /* dynamic colours */
   --colour-body: var(--colour-black);
@@ -33,7 +35,7 @@
   --regular: 300;
 
   --linespace: 1.3;
-  --inner-padding: 3em;
+  --inner-padding: 2em;
   --padding: 2em;
   --gap: 1em;
   
@@ -66,10 +68,10 @@
   font-smoothing: antialiased;
 }
 
-/* ::selection {
-  background-color: var(--colour-black);
+::selection {
+  background-color: rgba(255,255,255,0.4);
   color: var(--colour-white);
-} */
+}
 
 html {
   font: var(--regular) 1em/var(--linespace) var(--content);
@@ -134,9 +136,14 @@ main {
 }
 body {
   overflow-x: hidden;
+  background-color: var(--colour-grey);
 }
 body.modal-active {
   overflow-y: hidden;
+}
+body .grad-bg {
+  background: linear-gradient(#431c6c 0%, #804fe0 10%, #804fe0 35%, #482675 50%, #d81a3f 70%, #f65e31 100%);
+  /* border: 4px solid green; */
 }
 
 /* ________________NAV__________________ */
@@ -350,6 +357,7 @@ a.nav {
 }
 .landing-overlay .countdown {
   font-size: 12vw;
+  line-height: 0.8;
 }
 .landing-overlay h6 {
   text-transform: uppercase;
@@ -538,6 +546,7 @@ section.team .team-set .team-card .title {
 .right-item-layout {
   display: grid;
   grid-template-columns: auto min-content;
+  gap: calc(var(--gap) / 2);
 }
 
 .center-align {
@@ -624,20 +633,20 @@ section.team .team-set .team-card .title {
   max-width: 50em;
   background-color: var(--colour-white);
   --colour-text: var(--colour-purple);
-  padding: calc(var(--inner-padding) / 1.5);
+  padding: calc(var(--inner-padding) / 1.2);
   display: grid;
   gap: calc(var(--gap) * 2);
   border-radius: var(--corner-large);
-  max-height: 70vh;
+  max-height: 74vh;
   height: 100%;
-  grid-template-rows: min-content auto max-content;
+  grid-template-rows: min-content auto;
 }
 .inner-modal {
   overflow-y: auto;
 }
 .modal button.icon-round {
-  margin-top: calc(var(--gap) * -1);
-  margin-right: calc(var(--gap) * -1);
+  margin-top: calc(var(--gap) * -0.7);
+  margin-right: calc(var(--gap) * -0.7);
 }
 .modal .modal-topbar {
   align-items: center;
@@ -714,7 +723,12 @@ section.team .team-set .team-card .title {
   body {
     font-size: 0.8em;
   }
-  
+  p {
+    font-size: 1.8em;
+  }
+  p.small {
+    font-size: 1.4em;
+  }
   .intro-hero-text h1 {
     font-size: 13vw;
   }
@@ -734,6 +748,7 @@ section.team .team-set .team-card .title {
 @media screen and (min-width: 70em) {
   :root {
     --padding: 8em;
+    --inner-padding: 3em;
   }
   
   p {
@@ -808,6 +823,10 @@ section.team .team-set .team-card .title {
     font-size: 5vw;
   }
   
+  .modal {
+    padding: calc(var(--inner-padding) / 1.6);
+  }
+  
   section.team .team-set {
     grid-template-columns: repeat(4,1fr);
     gap: calc(var(--gap) * 2);
@@ -874,7 +893,7 @@ section.team .team-set .team-card .title {
   background-image: url("img/grain2.jpg");
   opacity: 0.065;
   top: -30vh;
-  left: -35vw;
+  left: -45vw;
   width: 200vw;
   position: fixed;
   z-index: var(--z-grain);

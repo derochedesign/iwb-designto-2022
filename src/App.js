@@ -1,8 +1,9 @@
-import { Routes, Route, Link, BrowserRouter as Router, BrowserRouter} from "react-router-dom";
+import { Routes, Route, Link, BrowserRouter} from "react-router-dom";
 import { useState, useEffect } from "react";
 import { isMobile } from "react-device-detect";
 import MainStack from "MainStack";
 import "main.css";
+import GradientBackground from "components/GradientBackground";
 
 import logoIcon from "img/logo-icon.svg";
 import logoText from "img/logo-text.svg";
@@ -19,42 +20,56 @@ function App() {
   });
   const [isScrolled, setIsScrolled] = useState(window.scrollY > SCROLLHEIGHT);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(true);
+  const [scrollHeight, setScrollHeight] = useState(document.body.scrollHeight);
+  const [imgLoaded, setImgLoaded] = useState();
+  
+  console.log(scrollHeight);
   
   useEffect(() => {
-    setDimensions({
-      height: window.innerHeight,
-      width: document.body.clientWidth
-    })
-    root.style.setProperty('--real-vh', window.innerHeight + "px");
+    setScrollHeight(document.body.scrollHeight);
+    // setDimensions({
+    //   height: window.innerHeight,
+    //   width: document.body.clientWidth
+    // })
+    // root.style.setProperty('--real-vh', window.innerHeight + "px");
     
-    //mobile issues fix
-    setTimeout(() => {
-      setDimensions({
-        height: window.innerHeight,
-        width: document.body.clientWidth
-      })
-      root.style.setProperty('--real-vh', window.innerHeight + "px");
-    }, 1000);
+    // //mobile issues fix
+    // setTimeout(() => {
+    //   setDimensions({
+    //     height: window.innerHeight,
+    //     width: document.body.clientWidth
+    //   })
+    //   root.style.setProperty('--real-vh', window.innerHeight + "px");
+    // }, 1000);
     
     window.addEventListener('scroll', handleScroll);
     
     return _ => {
       window.removeEventListener('scroll', handleScroll);
     }
-    
+
   },[]);
   
   useEffect(() => {
+    
+    setScrollHeight(document.body.scrollHeight);
+    
+  },[showOverlay, isScrolled, imgLoaded]);
+  
+  useEffect(() => {
     let timeoutId = null;
+    console.log("RERENDER ON SCROLL");
+    setScrollHeight(document.body.scrollHeight);
     const handleResize = () => {
       
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
-      setDimensions({
-        height: window.innerHeight,
-        width: document.body.clientWidth
-      })
-      root.style.setProperty('--real-vh', window.innerHeight + "px");
+        setDimensions({
+          height: window.innerHeight,
+          width: document.body.clientWidth
+        })
+        root.style.setProperty('--real-vh', window.innerHeight + "px");
       }, 150);
     }
     
@@ -63,8 +78,7 @@ function App() {
     return _ => {
       window.removeEventListener('resize', handleResize);
     }
-    
-  });
+  },[]);
   
   useEffect(() => {
     menuOpen ? document.body.classList.add("modal-active") : document.body.classList.remove("modal-active");
@@ -83,6 +97,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         {/* <h1>{dimensions.width}</h1> */}
+        {(scrollHeight) && <GradientBackground height={scrollHeight} width={dimensions.width}/>}
         <nav className="topbar" data-scrolled={isScrolled}>
           <div className="topbar-inner">
             <Link to="/">
@@ -91,7 +106,7 @@ function App() {
                 <img src={logoText} />
               </div>
             </Link>
-            <button className="icon" onClick={() => setMenuOpen(true)}><img src={menuIcon} /></button>
+            {!showOverlay && <button className="icon" onClick={() => setMenuOpen(true)}><img src={menuIcon} /></button>}
           </div>
         </nav>
         {
@@ -112,18 +127,18 @@ function App() {
                 <Link to="/introduction" className="nav"><h4>An Introduction</h4></Link>
                 <Link to="/explore" className="nav"><h4>Connect the Dots</h4></Link>
                 <Link to="/future" className="nav"><h4>Climate-ready Communities</h4></Link>
-                <Link to="/connect" className="nav"><h4>Connect</h4></Link>
+                <Link to="/connect" className="nav"><h4>Help Our Research</h4></Link>
               </div>
             </div>
           </div>
         }
         <Routes>
-          <Route path="/" element={<MainStack pos={1} vS={dimensions}/>}/>
-          <Route path="/introduction" element={<MainStack pos={2} vS={dimensions}/>}/>
-          <Route path="/explore" element={<MainStack pos={3} vS={dimensions}/>}/>
-          <Route path="/future" element={<MainStack pos={4} vS={dimensions}/>}/>
-          <Route path="/connect" element={<MainStack pos={5} vS={dimensions}/>}/>
-          <Route path="*" element={<MainStack pos={0} vS={dimensions}/>}/>
+          <Route path="/" element={<MainStack pos={1} vS={dimensions} showOverlay={showOverlay} setShowOverlay={setShowOverlay} setImgLoaded={setImgLoaded} imgLoaded={imgLoaded}/>}/>
+          <Route path="/introduction" element={<MainStack pos={2} vS={dimensions} setImgLoaded={setImgLoaded} imgLoaded={imgLoaded}/>}/>
+          <Route path="/explore" element={<MainStack pos={3} vS={dimensions} setImgLoaded={setImgLoaded} imgLoaded={imgLoaded}/>}/>
+          <Route path="/future" element={<MainStack pos={4} vS={dimensions} setImgLoaded={setImgLoaded} imgLoaded={imgLoaded}/>}/>
+          <Route path="/connect" element={<MainStack pos={5} vS={dimensions} setImgLoaded={setImgLoaded} imgLoaded={imgLoaded}/>}/>
+          <Route path="*" element={<MainStack pos={0} vS={dimensions} setImgLoaded={setImgLoaded} imgLoaded={imgLoaded}/>}/>
         </Routes>
       </BrowserRouter>      
     </div>

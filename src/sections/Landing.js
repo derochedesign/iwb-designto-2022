@@ -5,19 +5,17 @@ import Countdown from "components/Countdown";
 
 const Landing = props => {
   
-  const [showOverlay, setShowOverlay] = useState(true);
-  
   useEffect(() => {
-    showOverlay ? document.body.classList.add("modal-active") : document.body.classList.remove("modal-active");
+    props.showOverlay ? document.body.classList.add("modal-active") : document.body.classList.remove("modal-active");
   });
 
   return (
     <section className="landing" ref={props.refC}>
       
-      <div className="landing-overlay" data-active={showOverlay}>
+      <div className="landing-overlay" data-active={props.showOverlay}>
         <Countdown />
         <h6>Feeling lost?</h6>
-        <button onClick={() => setShowOverlay(false)}>Connect the Dots</button>
+        <button onClick={() => props.setShowOverlay(false)}>Connect the Dots</button>
       </div>
       <div className="item-list">
         <h1 className="alt">The climate-induced migration will intensify to unprecedented levels as early as 2030. In our lifetime we could see as many as 216 million people displaced by extreme weather and natural disasters.</h1>

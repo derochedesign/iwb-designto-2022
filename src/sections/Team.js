@@ -1,4 +1,5 @@
 import SectionWrapper from "components/SectionWrapper";
+import { useRef } from "react";
 
 import daksh from "img/team/daksh.jpg";
 import jenna from "img/team/jenna.jpg";
@@ -31,7 +32,7 @@ const Team = props => {
         
       <div className="team-set">
         {allTeam.map((t,i) => 
-          <TeamCard key={i} img={t.img} name={t.name} title={t.title} />
+          <TeamCard key={i} img={t.img} name={t.name} title={t.title} setImgLoaded={props.setImgLoaded} imgsCount={allTeam.length}/>
         )}
       </div>
     </SectionWrapper>
@@ -39,9 +40,18 @@ const Team = props => {
 }
 
 const TeamCard = props => {
+  
+  const imgsLoaded = useRef(0);
+  
+  const handleLoad = () => {
+    const imgs = props.imgsCount;
+    imgsLoaded.current = imgsLoaded.current + 1;
+    if (imgsLoaded.current === imgs) props.setImgLoaded("team");
+  }
+  
   return (
     <div className="team-card">
-      <img src={props.img} alt={`${props.name} headshot`} />
+      <img src={props.img} alt={`${props.name} headshot`} onLoad={handleLoad} />
       <h4 className="name">{props.name}</h4>
       <p className="title small">{props.title}</p>
     </div>
