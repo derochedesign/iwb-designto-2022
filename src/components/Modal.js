@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import closeIcon from "img/close.svg";
 import ScrollContainer from "./ScrollContainer";
 import { data } from "data/Data";
@@ -6,11 +6,18 @@ import { data } from "data/Data";
 const Modal = props => {
   
   const BodyText = data[props.i].info;
-  console.log("HFKJA");
+  const [isAnim, setIsAnim] = useState(false);
+  
+  useEffect(() => {
+    setTimeout(() => {
+      setIsAnim(true);
+    },100)
+    
+  },[]);
   
   return (
     <>  
-      <div className="modal-behind">
+      <div className="modal-behind" data-anim={isAnim}>
         <div className="modal">
           <div className="modal-topbar right-item-layout">
             <h3 className="highlight">{data[props.i].title}</h3>

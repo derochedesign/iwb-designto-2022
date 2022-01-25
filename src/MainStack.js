@@ -52,7 +52,10 @@ const MainStack = props => {
     }
     
     // if(curr) curr.scrollTop = (_ref.getBoundingClientRect().top + _offset);
-
+    if (_ref !== landingRef.current) {
+      props.setShowOverlay(false);
+    }
+    
     window.scrollTo({
       top:_ref.getBoundingClientRect().top + window.pageYOffset + _offset,
       behavior:"smooth"

@@ -13,13 +13,11 @@ const GradientBackground = props => {
     canvas.height = Math.floor(props.height * SCALE);
     canvas.width = Math.floor(props.width * SCALE);
     canvas.style.height = `${props.height}px`;
-    context.scale(SCALE,SCALE)
-    console.log("REDRAW");
+    context.scale(SCALE,SCALE);
     draw(context);
   },[props.width, props.height]);
   
   const draw = c => {
-    console.log(props.height);
     const h = props.height;
     const w = props.width;
     const respVal = (w/(w+100));

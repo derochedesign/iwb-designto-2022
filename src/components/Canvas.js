@@ -13,9 +13,7 @@ const Canvas = props => {
     {x:450, y:62, r:nodeRadius, isHover:false}
   ]);
 
-  console.log(nodeArr);
   useEffect(() => {
-    console.log("heloofjawiof");
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     
@@ -60,14 +58,11 @@ const Canvas = props => {
   }
   
   const handleHover = e => {
-    // console.log(e.pageX);
-    // console.log(e.pageY);
     let mX = e.clientX - canvasRef.current.getBoundingClientRect().left;
     let mY = e.clientY - canvasRef.current.getBoundingClientRect().top;
     
     nodeArr.forEach((node, i) => {
       if ((mX > (node.x - node.r) && mX < (node.x + node.r)) && (mY > (node.y - node.r) && mY < (node.y + node.r))) {
-        console.log("inside node");
         if (!nodeArr[i].isHover) {
           let _nodeArr = nodeArr;
           _nodeArr[i].isHover = true;

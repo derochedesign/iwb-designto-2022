@@ -7,7 +7,7 @@ const Survey = props => {
   
   const [isSubmit, setIsSubmit] = useState(false);
   const [form, setForm] = useState();
-  const SANDBOX = true;
+  const SANDBOX = false;
   
   useEffect(() => {
     if (form) isSubmit ? form.close() : form.open()

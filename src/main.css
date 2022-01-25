@@ -17,8 +17,10 @@
   --colour-black: black;
   --colour-white: white;
   --colour-purple: #5514ac;
+  --colour-purple-dark: #3f0b85;
   --colour-orange: #f65e31;
   --colour-grey: #232323;
+  --colour-lightgrey: grey;
   
   /* dynamic colours */
   --colour-body: var(--colour-black);
@@ -72,6 +74,10 @@
   background-color: rgba(255,255,255,0.4);
   color: var(--colour-white);
 }
+.modal ::selection,
+.menu ::selection {
+  background-color: var(--colour-purple);
+}
 
 html {
   font: var(--regular) 1em/var(--linespace) var(--content);
@@ -115,10 +121,18 @@ h5 {
 h6 {
   font: var(--med) 1.1em/var(--linespace) var(--subheading);
 }
+h6.explainer {
+  font-size: 0.9em;
+  margin-bottom: calc(var(--gap) / 2);
+  text-transform: uppercase;
+  font-weight: var(--bold);
+  --colour-text: var(--colour-black);
+}
 
 h1,h2,h3,h4,h5,h6,p,span,a {
   color: var(--colour-text);
 }
+
 h1.highlight,
 h2.highlight,
 h3.highlight,
@@ -129,6 +143,12 @@ p.highlight,
 span.highlight,
 a.highlight {
   --colour-text: var(--colour-purple);
+}
+
+span.tiny {
+  font-size: 0.6em;
+  font-weight: var(--regular);
+  vertical-align: middle;
 }
 
 main {
@@ -215,16 +235,29 @@ nav.topbar[data-scrolled="true"] .logo > :first-child span {
   padding-top: var(--inner-padding);
   display: grid;
   gap: calc(var(--inner-padding) * 2);
+  max-height: var(--real-vh);
+  overflow-y: auto;
+}
+.menu-header {
+  display: grid;
+  grid-template-columns: max-content auto min-content;
+  align-items: center;
+  gap: var(--inner-padding);
 }
 .menu-links {
   display: flex;
   flex-direction: column;
+  --colour-text: var(--colour-black);
 }
 .menu-links > * {
   margin-bottom: calc(var(--gap) / 2);
 }
 .menu-links > :last-child {
   margin-bottom: unset;
+}
+
+.menu button {
+  margin-right: auto;
 }
 
 .menu h4 {
@@ -241,6 +274,9 @@ nav.topbar[data-scrolled="true"] .logo > :first-child span {
 }
 .logo > :last-child {
   display: none;
+}
+.logo.item-row > * {
+  margin: unset;
 }
 .logo > :first-child {
   position: relative;
@@ -269,7 +305,12 @@ button {
 }
 button.highlight {
   border-color: var(--colour-purple);
-  --colour-text: var(--colour-purple);
+  --colour-text: var(--colour-white);
+  padding: calc(var(--inner-padding) / 2) calc(var(--inner-padding) / 2);
+  border-width: 2px;
+  font-weight: var(--med);
+  background-color: var(--colour-purple);
+  border-radius: var(--corner-normal);
 }
 button.round {
   font: var(--med) 1.2em/1 var(--heading);
@@ -330,6 +371,41 @@ a.nav {
   margin-bottom: var(--gap);
 }
 
+.toggle-container {
+  display: grid;
+  grid-template-rows: min-content auto;
+  justify-content: right;
+  text-align: center;
+}
+.toggle-container .explainer {
+  margin-bottom: calc(var(--gap) / 4);
+  line-height: 1;
+}
+.toggle-switch {
+  --inner-padding: 1em;
+  width: 4em;
+  height: 2em;
+  background-color: var(--colour-black);
+  border-radius: 10em;
+  padding: calc(var(--inner-padding) / 5);
+  display: grid;
+  justify-items: left;
+  transition: 1s ease;
+  cursor: pointer;
+}
+.toggle-switch .toggle {
+  background-color: var(--colour-white);
+  height: 100%;
+  width: calc(2em - calc(var(--inner-padding) / 3));
+  border-radius: var(--round);
+}
+.toggle-switch[data-toggled="true"] {
+  justify-items: right;
+}
+.toggle-switch[data-toggled="false"] {
+  background-color: var(--colour-lightgrey);
+}
+
 /* ________________OVERLAY__________________ */
 
 .landing-overlay {
@@ -373,9 +449,10 @@ a.nav {
   font-size: 1.2em;
 }
 .landing-overlay button {
-  padding: calc(var(--inner-padding) / 2.4) calc(var(--inner-padding) / 1.5);
+  padding: calc(var(--inner-padding) / 2) calc(var(--inner-padding) / 1);
   border-radius: var(--corner-normal);
   font-family: var(--heading);
+  font-size: 1.4em;
 }
 
 /* ________________SECTIONS__________________ */
@@ -395,6 +472,7 @@ section.landing {
   align-content: flex-end;
   min-height: var(--real-vh);
   padding-top: 10em;
+  padding-bottom: calc(var(--padding) * 3);
 }
 
 section.landing .divider {
@@ -654,6 +732,7 @@ section.team .team-set .team-card .title {
   max-height: 74vh;
   height: 100%;
   grid-template-rows: min-content auto;
+  transition: transform 0.3s ease;
 }
 .inner-modal {
   overflow-y: auto;
@@ -677,6 +756,17 @@ section.team .team-set .team-card .title {
   align-content: center;
   justify-content: center;
   background-color: rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.modal-behind[data-anim="true"] {
+  opacity: 1;
+}
+.modal-behind .modal {
+  transform: translateY(20px);
+}
+.modal-behind[data-anim="true"] .modal {
+  transform: translateY(0);
 }
 
 /* ________________HOVER__________________ */
@@ -687,7 +777,7 @@ section.team .team-set .team-card .title {
     color: var(--colour-black);
   }
   button.highlight:hover {
-    background-color: var(--colour-purple);
+    background-color: var(--colour-purple-dark);
     color: var(--colour-white);
   }
   button.round:hover {
@@ -752,6 +842,9 @@ section.team .team-set .team-card .title {
   :root {
     --padding: 4em;
   }
+  section.landing {
+    padding-bottom: var(--padding);
+  }
   section.introduction .intro-inner {
     display: grid;
     grid-template-columns: auto auto;
@@ -798,18 +891,35 @@ section.team .team-set .team-card .title {
   button {
     font-size: 1.3em;
   }
+  button.highlight {
+    padding: calc(var(--inner-padding) / 2.8) calc(var(--inner-padding) / 2.2);
+  }
   button.round {
     font-size: 1.6em;
   }
   
+  .toggle-switch {
+    width: 4em;
+    height: 2em;
+  }
+  .toggle-switch .toggle {
+    width: calc(2em - calc(var(--inner-padding) / 3));
+  }
+  
   .logo > :last-child {
     display: block;
+  }
+  .logo.item-row > * {
+    margin-right: calc(var(--gap) / 1);
   }
   
   .center-align {
     padding-bottom: 0;
   }
   
+  .menu-header > :nth-child(2) {
+    justify-self: right;
+  }
   .menu-links > * {
     margin-bottom: calc(var(--gap) / 4);
   }
@@ -839,6 +949,10 @@ section.team .team-set .team-card .title {
   
   .modal {
     padding: calc(var(--inner-padding) / 1.6);
+  }
+  
+  section.landing {
+    padding-bottom: var(--padding);
   }
   
   section.team .team-set {
@@ -902,7 +1016,7 @@ section.team .team-set .team-card .title {
     width: 8px;
 }
 
-.App::after {
+.App:not([data-grain="false"])::after {
   content: "";
   background-image: url("img/grain2.jpg");
   opacity: 0.065;

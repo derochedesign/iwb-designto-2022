@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const MailingList = ({isSubmit, setIsSubmit, setStartMail}) => {
   
   const [form, setForm] = useState();
-  const SANDBOX = true;
+  const SANDBOX = false;
   
   useEffect(() => {
     if (form) isSubmit ? form.close() : form.open()

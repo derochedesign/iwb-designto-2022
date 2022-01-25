@@ -15,7 +15,7 @@ const Landing = props => {
       <div className="landing-overlay" data-active={props.showOverlay}>
         <Countdown />
         <div className="center-align">
-          <h6 className="quote">Climate Migration hotspots will emerge as early as 2030</h6>
+          <h6 className="quote">&#x201C; Climate Migration hotspots will emerge as early as 2030 &#x201D;</h6>
           <p className="small">Groundswell Report on Climate Migration</p>
         </div>
         <button onClick={() => props.setShowOverlay(false)}>Connect the Dots</button>

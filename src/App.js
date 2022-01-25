@@ -9,6 +9,7 @@ import logoIcon from "img/logo-icon.svg";
 import logoText from "img/logo-text.svg";
 import menuIcon from "img/menu.svg";
 import closeIcon from "img/close.svg";
+import Toggle from "components/Toggle";
 
 function App() {
 
@@ -23,25 +24,14 @@ function App() {
   const [showOverlay, setShowOverlay] = useState(true);
   const [scrollHeight, setScrollHeight] = useState(document.body.scrollHeight);
   const [imgLoaded, setImgLoaded] = useState();
+  const [grainOn, setGrainOn] = useState(true);
   
-  console.log(scrollHeight);
+  useEffect(() => {
+    menuOpen ? document.body.classList.add("modal-active") : document.body.classList.remove("modal-active");
+  });
   
   useEffect(() => {
     setScrollHeight(document.body.scrollHeight);
-    // setDimensions({
-    //   height: window.innerHeight,
-    //   width: document.body.clientWidth
-    // })
-    // root.style.setProperty('--real-vh', window.innerHeight + "px");
-    
-    // //mobile issues fix
-    // setTimeout(() => {
-    //   setDimensions({
-    //     height: window.innerHeight,
-    //     width: document.body.clientWidth
-    //   })
-    //   root.style.setProperty('--real-vh', window.innerHeight + "px");
-    // }, 1000);
     
     window.addEventListener('scroll', handleScroll);
     
@@ -59,7 +49,6 @@ function App() {
   
   useEffect(() => {
     let timeoutId = null;
-    console.log("RERENDER ON SCROLL");
     setScrollHeight(document.body.scrollHeight);
     const handleResize = () => {
       
@@ -94,7 +83,7 @@ function App() {
   }
   
   return (
-    <div className="App">
+    <div className="App" data-grain={grainOn}>
       <BrowserRouter>
         {/* <h1>{dimensions.width}</h1> */}
         {(scrollHeight) && <GradientBackground height={scrollHeight} width={dimensions.width}/>}
@@ -113,11 +102,12 @@ function App() {
           (menuOpen) &&
           <div className="menu">
             <div className="inner-menu">
-              <div className="menu-header right-item-layout">
+              <div className="menu-header">
                 <div className="logo item-row">
                   <img src={logoIcon} />
                   <img src={logoText} />
                 </div>
+                <Toggle state={grainOn} setToggle={setGrainOn} />
                 <button className="icon" onClick={() => setMenuOpen(false)}>
                   <img src={closeIcon} />
                 </button>
@@ -125,20 +115,24 @@ function App() {
               <div className="menu-links" onClick={() => setMenuOpen(false)}>
                 <Link to="/" className="nav"><h4>Home</h4></Link>
                 <Link to="/introduction" className="nav"><h4>An Introduction</h4></Link>
-                <Link to="/explore" className="nav"><h4>Connect the Dots</h4></Link>
-                <Link to="/future" className="nav"><h4>Climate-ready Communities</h4></Link>
-                <Link to="/connect" className="nav"><h4>Help Our Research</h4></Link>
+                <Link to="/explore" className="nav"><h4>Connect The Dots</h4></Link>
+                <Link to="/future" className="nav"><h4>Climate-Ready Communities</h4></Link>
+                <Link to="/research" className="nav"><h4>Help Our Research</h4></Link>
+              </div>
+              <div>
+                <h6 className="explainer">Read the full report here</h6>
+                <button className="highlight">Download Report <span className="tiny">10.7 MB</span></button>
               </div>
             </div>
           </div>
         }
         <Routes>
           <Route path="/" element={<MainStack pos={1} vS={dimensions} showOverlay={showOverlay} setShowOverlay={setShowOverlay} setImgLoaded={setImgLoaded} imgLoaded={imgLoaded}/>}/>
-          <Route path="/introduction" element={<MainStack pos={2} vS={dimensions} setImgLoaded={setImgLoaded} imgLoaded={imgLoaded}/>}/>
-          <Route path="/explore" element={<MainStack pos={3} vS={dimensions} setImgLoaded={setImgLoaded} imgLoaded={imgLoaded}/>}/>
-          <Route path="/future" element={<MainStack pos={4} vS={dimensions} setImgLoaded={setImgLoaded} imgLoaded={imgLoaded}/>}/>
-          <Route path="/connect" element={<MainStack pos={5} vS={dimensions} setImgLoaded={setImgLoaded} imgLoaded={imgLoaded}/>}/>
-          <Route path="*" element={<MainStack pos={0} vS={dimensions} setImgLoaded={setImgLoaded} imgLoaded={imgLoaded}/>}/>
+          <Route path="/introduction" element={<MainStack pos={2} vS={dimensions} setImgLoaded={setImgLoaded} imgLoaded={imgLoaded} setShowOverlay={setShowOverlay}/>}/>
+          <Route path="/explore" element={<MainStack pos={3} vS={dimensions} setImgLoaded={setImgLoaded} imgLoaded={imgLoaded} setShowOverlay={setShowOverlay}/>}/>
+          <Route path="/future" element={<MainStack pos={4} vS={dimensions} setImgLoaded={setImgLoaded} imgLoaded={imgLoaded} setShowOverlay={setShowOverlay}/>}/>
+          <Route path="/research" element={<MainStack pos={5} vS={dimensions} setImgLoaded={setImgLoaded} imgLoaded={imgLoaded} setShowOverlay={setShowOverlay}/>}/>
+          <Route path="*" element={<MainStack pos={0} vS={dimensions} setImgLoaded={setImgLoaded} imgLoaded={imgLoaded} setShowOverlay={setShowOverlay}/>}/>
         </Routes>
       </BrowserRouter>      
     </div>
