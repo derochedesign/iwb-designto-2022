@@ -27,7 +27,7 @@ function App() {
   const [grainOn, setGrainOn] = useState(true);
   
   useEffect(() => {
-    menuOpen ? document.body.classList.add("modal-active") : document.body.classList.remove("modal-active");
+    (menuOpen || showOverlay) ? document.body.classList.add("modal-active") : document.body.classList.remove("modal-active");
   });
   
   useEffect(() => {
