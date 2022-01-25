@@ -18,7 +18,7 @@ const Footer = props => {
   ]
   
   const handleLoad = () => {
-    const imgs = 3;
+    const imgs = 2;
     imgsLoaded.current = imgsLoaded.current + 1;
     if (imgsLoaded.current === imgs) props.setImgLoaded("footer");
   }
@@ -36,9 +36,12 @@ const Footer = props => {
           <a href={sources[0]} rel="noopener" target={"_blank"}><button className="round">Institute without Boundaries</button></a>
           <a href={sources[1]} rel="noopener" target={"_blank"}><button className="round">Follow us on IG</button></a>
         </div>
+        <div className="item-list center">
+          <h6>The IDS cohort of 21/22 would like to thank their faculty for their endless support and expertise.</h6>
+          <p className="small">Special mention to Graeme Kondruss, John Jung, Matthew Hexerner, Nazanin Homayounfar, and Robert Giusti.</p>
+        </div>
         <div className="item-row partner-logos">
           <img src={gbcImg} alt="George Brown College logo" onLoad={handleLoad}/>
-          <img src={iwbImg} alt="IwB logo"  onLoad={handleLoad}/>
           <img src={designtoImg} alt="DesignTO logo" onLoad={handleLoad}/>
         </div>
         <div className="item-row site-info">

@@ -45,20 +45,20 @@ const Konva = props => {
   const titleBlocksDesktop = [
     {x:padding, y:30, w:titleBoxSize, h:400, text:"HOW DOES INEQUALITY FACTOR INTO CLIMATE CHANGE?"},
     {x:padding, y:1020, w:700, h:600, text:"HOW CAN CLIMATE CHANGE BE ADDRESSED IN DIFFERENT SOCIAL, POLITICAL, AND ECONOMIC SPHERES?"},
-    {x:padding, y:2483, w:700, h:600, text:"HOW DOES CLIMATE CHANGE IMPACT NON-CLIMATE RELATED FACTORS AT THE HUMAN SCALE?"},
-    {x:padding, y:3543, w:titleBoxSize*1.4, h:600, text:"WHAT ARE THE OPPORTUNITIES HERE?"}
+    {x:padding, y:2483, w:700, h:600, text:"HOW DOES CLIMATE CHANGE IMPACT HUMAN NEEDS? WHAT ARE THE OPPORTUNITIES HERE?"},
+    {x:padding, y:3543, w:titleBoxSize*1.4, h:600, text:"WHAT DOES A CLIMATE READY COMMUNITY LOOK LIKE?"}
   ]
   const titleBlocksTablet = [
     {x:padding, y:90, w:400, h:400, text:"HOW DOES INEQUALITY FACTOR INTO CLIMATE CHANGE?"},
     {x:padding, y:850, w:500, h:600, text:"HOW CAN CLIMATE CHANGE BE ADDRESSED IN DIFFERENT SOCIAL, POLITICAL, AND ECONOMIC SPHERES?"},
-    {x:padding, y:1710, w:500, h:600, text:"HOW DOES CLIMATE CHANGE IMPACT NON-CLIMATE RELATED FACTORS AT THE HUMAN SCALE?"},
-    {x:padding, y:2593, w:500, h:600, text:"WHAT ARE THE OPPORTUNITIES HERE?"}
+    {x:padding, y:1710, w:500, h:600, text:"HOW DOES CLIMATE CHANGE IMPACT HUMAN NEEDS? WHAT ARE THE OPPORTUNITIES HERE?"},
+    {x:padding, y:2593, w:500, h:600, text:"WHAT DOES A CLIMATE READY COMMUNITY LOOK LIKE?"}
   ]
   const titleBlocksMobile = [
     {x:padding, y:40, w:w-padding, h:220, text:"HOW DOES INEQUALITY FACTOR INTO CLIMATE CHANGE?"},
     {x:padding, y:1020, w:w-padding, h:600, text:"HOW CAN CLIMATE CHANGE BE ADDRESSED IN DIFFERENT SOCIAL, POLITICAL, AND ECONOMIC SPHERES?"},
-    {x:padding, y:2010, w:w-padding, h:600, text:"HOW DOES CLIMATE CHANGE IMPACT NON-CLIMATE RELATED FACTORS AT THE HUMAN SCALE?"},
-    {x:padding, y:3115, w:w-padding, h:600, text:"WHAT ARE THE OPPORTUNITIES HERE?"}
+    {x:padding, y:2010, w:w-padding, h:600, text:"HOW DOES CLIMATE CHANGE IMPACT HUMAN NEEDS? WHAT ARE THE OPPORTUNITIES HERE?"},
+    {x:padding, y:3115, w:w-padding, h:600, text:"WHAT DOES A CLIMATE READY COMMUNITY LOOK LIKE?"}
   ]
   
   const nodeGroupCoordsDesktop = [

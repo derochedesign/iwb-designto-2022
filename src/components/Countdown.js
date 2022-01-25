@@ -1,6 +1,6 @@
 import Countdowner from "react-countdown";
 
-const date = "2029-09-01T00:00:00-05:00"
+const date = "2030-01-01T00:00:00-05:00"
 
 const Countdown = () => {
   return (

@@ -55,7 +55,7 @@ function App() {
     
     setScrollHeight(document.body.scrollHeight);
     
-  },[showOverlay, isScrolled, imgLoaded]);
+  },[showOverlay, isScrolled, imgLoaded, dimensions]);
   
   useEffect(() => {
     let timeoutId = null;

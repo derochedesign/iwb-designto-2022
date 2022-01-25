@@ -14,13 +14,16 @@ const Landing = props => {
       
       <div className="landing-overlay" data-active={props.showOverlay}>
         <Countdown />
-        <h6>Feeling lost?</h6>
+        <div className="center-align">
+          <h6 className="quote">Climate Migration hotspots will emerge as early as 2030</h6>
+          <p className="small">Groundswell Report on Climate Migration</p>
+        </div>
         <button onClick={() => props.setShowOverlay(false)}>Connect the Dots</button>
       </div>
       <div className="item-list">
-        <h1 className="alt">The climate-induced migration will intensify to unprecedented levels as early as 2030. In our lifetime we could see as many as 216 million people displaced by extreme weather and natural disasters.</h1>
+        <h1 className="alt">Escalating pressure on these hotspots will displace 216 million people in the ensuing decades.</h1>
         <div>
-          <h1 className="alt">When our homeland is no longer a haven,</h1>
+          <h1 className="alt">When our homes are no longer habitable,</h1>
           <h1 className="alt">where will we go?</h1>
         </div>
         <Link to="/introduction" className="arrow-down"><button className="icon"><img src={arrowIcon} /></button></Link>
