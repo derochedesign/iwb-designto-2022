@@ -433,7 +433,7 @@ a.nav {
   transform: scale(1);
 }
 .landing-overlay .countdown {
-  font-size: 12vw;
+  font-size: 13vw;
   line-height: 0.8;
 }
 .landing-overlay .center-align {
@@ -835,6 +835,9 @@ section.team .team-set .team-card .title {
   }
   .intro-hero-text h1 {
     font-size: 13vw;
+  }
+  .modal {
+    height: 65vh;
   }
 }
 
