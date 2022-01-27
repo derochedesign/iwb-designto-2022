@@ -37,7 +37,7 @@ const Footer = props => {
         </div>
         <div className="item-list center">
           <h6>The IDS cohort of 21/22 would like to thank faculty members for their endless support and expertise.</h6>
-          <p className="small">Special mention to Graeme Kondruss, John Jung, Matthew Hexerner, Nazanin Homayounfar, and Robert Giusti.</p>
+          <p className="small">Special mention to Graeme Kondruss, John Jung, Matthew Hexemer, Nazanin Homayounfar, and Robert Giusti.</p>
         </div>
         <div className="item-row partner-logos">
           <img src={gbcImg} alt="George Brown College logo" onLoad={handleLoad}/>
