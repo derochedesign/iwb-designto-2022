@@ -25,7 +25,7 @@ const Landing = props => {
         <h1 className="alt">Immediate disasters, such as floods, wildfires, and extreme temperatures, in addition to steady environmental deterioration such as air pollution and desertification, will displace 216 million people in the ensuing decades.</h1>
         <div>
           <h1 className="alt">When our homes are no longer habitable,</h1>
-          <h1 className="alt">where will we go?</h1>
+          <h1 className="alt">what will we do?</h1>
         </div>
         <Link to="/introduction" className="arrow-down"><button className="icon"><img src={arrowIcon} /></button></Link>
       </div>
